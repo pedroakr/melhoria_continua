@@ -1,0 +1,183 @@
+1️⃣ Configuração inicial do projeto
+
+Objetivo: Ter o projeto Spring Boot funcionando, compilando e rodando.
+
+Passos:
+
+Criar projeto no Spring Initializr:
+
+Dependências sugeridas: Spring Web, Spring Data JPA, H2/MySQL/PostgreSQL, Lombok, Spring Security (opcional).
+
+Configurar application.properties ou application.yml:
+
+Conexão com o banco de dados.
+
+Configurações do Hibernate (ddl-auto=update para teste).
+
+Criar a classe principal: MelhoriasApiApplication.java.
+
+2️⃣ Criar entidades (pacote model)
+
+Objetivo: Ter o domínio do sistema definido, pronto para persistência.
+
+Passos:
+
+Criar entidades principais:
+
+Usuario.java
+
+Melhoria.java
+
+Plano.java
+
+Execucao.java
+
+Verificacao.java
+
+Aprendizado.java
+
+Comentario.java
+
+Criar enums de apoio:
+
+StatusMelhoria.java
+
+PerfilAcesso.java
+
+Definir relacionamentos JPA (OneToMany, ManyToOne, OneToOne).
+
+3️⃣ Criar repositórios (pacote repository)
+
+Objetivo: Permitir acesso ao banco usando Spring Data JPA.
+
+Passos:
+
+Criar interfaces que estendem JpaRepository:
+
+UsuarioRepository.java
+
+MelhoriaRepository.java
+
+ComentarioRepository.java
+
+Testar CRUD básico via unit tests ou CommandLineRunner.
+
+4️⃣ Criar DTOs (pacote dto)
+
+Objetivo: Separar as entidades da API, garantir segurança e flexibilidade.
+
+Passos:
+
+Criar DTOs correspondentes às entidades principais:
+
+UsuarioDTO.java
+
+MelhoriaDTO.java
+
+ComentarioDTO.java
+
+AuthRequestDTO.java / AuthResponseDTO.java
+
+Implementar mappers (manuais ou usar MapStruct) para converter Entity <-> DTO.
+
+5️⃣ Criar serviços (pacote service)
+
+Objetivo: Implementar a lógica de negócio do sistema.
+
+Passos:
+
+Criar serviços para cada entidade/feature:
+
+UsuarioService.java
+
+MelhoriaService.java
+
+ComentarioService.java
+
+AuthService.java
+
+Lógica típica:
+
+CRUD de melhorias e usuários.
+
+Alteração de status PDCL.
+
+Regras de validação (ex: data de conclusão não pode ser anterior à criação).
+
+6️⃣ Criar controllers (pacote controller)
+
+Objetivo: Expor a API REST para os clientes/front-end.
+
+Passos:
+
+Criar controllers correspondentes aos serviços:
+
+AuthController.java
+
+UsuarioController.java
+
+MelhoriaController.java
+
+ComentarioController.java
+
+Mapear endpoints REST:
+
+GET, POST, PUT, DELETE, PATCH.
+
+Usar DTOs no request e response.
+
+7️⃣ Segurança (pacote security) – opcional mas recomendado
+
+Objetivo: Proteger endpoints, definir papéis (Admin, Gestor, Colaborador).
+
+Passos:
+
+Configurar Spring Security:
+
+SecurityConfig.java → definir regras de acesso por endpoint e perfil.
+
+JWT:
+
+JwtAuthenticationFilter.java → filtrar requests.
+
+UserDetailsServiceImpl.java → carregar usuário autenticável.
+
+Testar login e autorização de endpoints.
+
+8️⃣ Testes
+
+Objetivo: Garantir que tudo funcione como esperado.
+
+Passos:
+
+Testes unitários para Service e Repository.
+
+Testes de integração para Controller usando MockMvc ou Postman.
+
+Validar fluxo PDCL completo (Plan → Do → Check → Learn).
+
+9️⃣ Relatórios / Funcionalidades extras
+
+RelatorioController para filtros e exportação.
+
+Dashboard ou endpoints agregados para análise por gestor/departamento.
+
+✅ Resumo da ordem de desenvolvimento
+
+Configuração do projeto (Spring Boot, banco, Lombok).
+
+Entidades (model) e enums.
+
+Repositórios (repository).
+
+DTOs (dto) e mapeamento.
+
+Serviços (service).
+
+Controllers (controller).
+
+Segurança (security).
+
+Testes unitários e integração.
+
+Funcionalidades extras (relatórios, dashboards).

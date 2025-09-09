@@ -1,0 +1,8 @@
+package com.cottonstar.melhorias.model;
+
+public class Verificacao {
+    private String id;
+    private String indicadoresAnalisados;   // Qual metodo foi usado para analisar a melhoria?
+    private String resultadosObtidos;       // Resultado do metodo usado
+    private Boolean metasAtingidas;         // Quais objetivos definidos no plano foram atingidos
+}
