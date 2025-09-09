@@ -1,8 +1,10 @@
-package com.cottonstar.melhorias.model;
+package com.cottonstar.melhorias.dto;
+
 import java.time.LocalDateTime;
 
-public class Comentario {
+public class ComentarioDTO {
     private String id;
     private String mensagem;
+    private String autorNome;
     private LocalDateTime dataComentario;
 }
