@@ -1,7 +1,17 @@
 package com.cottonstar.melhorias.model.enums;
 
 public enum StatusEtapa {
-    INICIADO,               // Começamos...
-    AGUARDANDO,             // Aguardando etapa anterior ser finalizada
-    FINALIZADO,             // Concluiu a etapa
+    INICIADO("Iniciado"),
+    AGUARDANDO("Aguardando"),
+    FINALIZADO("Finalizado");
+
+    private final String descricao;
+
+    StatusEtapa(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }

@@ -1,10 +1,10 @@
 package com.cottonstar.melhorias.dto;
 
 import com.cottonstar.melhorias.model.enums.Departamento;
-import com.cottonstar.melhorias.model.enums.TipoMelhoria;
+import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 
 public class CriarMelhoriaDTO {
     private String titulo;
-    private TipoMelhoria tipo;
+    private TamanhoMelhoria tipo;
     private Departamento departamentoMelhoria;
 }

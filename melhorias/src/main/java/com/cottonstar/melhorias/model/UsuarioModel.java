@@ -17,6 +17,4 @@ public class UsuarioModel {
 
     // Permissões de acesso: ADMIN, GESTOR, COLABORADOR
     private PerfilAcesso perfil;
-
-    // Getters, Setters, Construtores
 }

@@ -10,5 +10,5 @@ import lombok.*;
 public class ComentarioModel {
     private String id;
     private String mensagem;
-    private LocalDateTime dataComentario;
+    private LocalDateTime dataComentario;       // GERADO AUTOMATICAMENTE
 }

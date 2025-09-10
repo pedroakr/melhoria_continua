@@ -11,9 +11,8 @@ import java.time.LocalDate;
 @Builder
 public class AprendizadoModel {
     private String id;
-    private String pontosFortes;                // Breve descrição do ponto forte da equipe no decorrer do processo de melhoria
-    private String pontosDeMelhoria;            // Breve descrição do que poderia ter sido melhor
-    private LocalDate inicioAprendizado;              // Data inicial gerada automaticamente ao preencher e salvar
-    private LocalDate fimAprendizado;                 // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
-    private StatusEtapa statusExecucao;
+    private String descricaoAprendizado;        // DESCRIÇÃO DO QUE FOI APRENDIDO
+    private LocalDate inicioAprendizado;        // DATA INICIAL            { IF statusAprendizado == "INICIADO" { inicioAprendizado = DATA ATUAL } }
+    private LocalDate fimAprendizado;           // DATA QUE FOI FINALIZADO { IF statusAprendizado == "FINALIZADO" { fimAprendizado = DATA ATUAL } }
+    private StatusEtapa statusAprendizado;      // STATUS ATUAL { IF statusVerificacao == "AGUARDANDO" { statusAprendizado = "AGUARDANDO"  } IF statusVerificacao == "FINALIZADO" { statusAprendizado = "INICIADO" } IF PRESS_BOTAO_FINALIZAR = TRUE { statusAprendizado = "FINALIZADO" } }
 }

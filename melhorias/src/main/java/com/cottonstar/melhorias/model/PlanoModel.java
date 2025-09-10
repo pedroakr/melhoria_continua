@@ -10,10 +10,12 @@ import lombok.*;
 @Builder
 public class PlanoModel {
     private String id;
-    private String analiseProblema;     // Breve identificação do Problema
-    private String estrategia;          // Breve resumo do pretende-se fazer
-    private String objetivos;           // Breve descrição do objetivo da melhoria
-    private LocalDate inicioPlano;      // Data inicial gerada automaticamente ao preencher e salvar
-    private LocalDate fimPlano;         // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
-    private StatusEtapa statusPlano;
+    private String analiseProblema;                     // DESCRIÇÃO DO PROBLEMA
+    private String estrategia;                          // O QUE SERÁ FEITO
+    private String objetivos;                           // RESULTADO ESPERADO
+    private ParticipacaoPlanoModel participantesPlano;  // USUARIOS QUE PARTICIPARÃO
+    private double expectativaFinanceira;               // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
+    private LocalDate inicioPlano;                      // DATA INICIDA (GERADO AO STARTAR) { IF statusPlano == "INICIADO" }
+    private LocalDate fimPlano;                         // DATA FINAL (GERADO AO FINALIZAR) { IF statusPlano == "FINALIZADO" }
+    private StatusEtapa statusPlano;                    // STATUS ATUAL { AO CRIAR MELHORIA (AÇÃO) STARTAR COMO "INICIADO", APÓS O USUARIO PODE ALTERAR PARA FINALIZADO QUANDO ACHAR NECESSARIO
 }

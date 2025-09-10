@@ -1,14 +1,21 @@
 package com.cottonstar.melhorias.model.enums;
 
-public enum StatusMelhoria {     //
-    EM_APROVACAO,           // Em processo de aprovação do gestor
-    CANCELADA,              // Cancelado
-    PLANO,
-    EXECUCAO,
-    VERIFICACAO,
-    APRENDIZADO,
-    VALIDANDO,              // Em processo de validação pelo aprovador (Conclusão)-> Valida a implementacao
-    FINALIZADO              // Status após validado
+public enum StatusMelhoria {
+    CRIADO("Criado"),
+    EM_ANDAMENTO("Em andamento"),
+    CONCLUIDO("Concluído"),
+    APROVADO("Aprovado"),
+    REJEITADO("Rejeitado");
+
+    private final String descricao;
+
+    StatusMelhoria(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }
 
 

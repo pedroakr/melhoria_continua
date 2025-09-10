@@ -4,6 +4,8 @@ import com.cottonstar.melhorias.model.enums.StatusEtapa;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -11,8 +13,19 @@ import java.time.LocalDate;
 @Builder
 public class ExecucaoModel {
     private String id;
-    private String atividadesRealizadas;        // Descrição das estapas do processo de melhoria que foram realizados
-    private LocalDate inicioExecucao;              // Data inicial gerada automaticamente ao preencher e salvar
-    private LocalDate fimExecucao;                 // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
-    private StatusEtapa statusExecucao;
+    private LocalDate inicioExecucao;                                   // DATA INICIAL GERADA AUTOMATICAMENTE
+    private LocalDate fimExecucao;                                      // DATA FINAL GERADA AUTOMATICAMENTE
+    private ParticipacaoExecucaoModel participantesExecucao;
+
+    // Histórico de comentários
+    @Builder.Default
+    private List<ComentarioModel> comentarios = new ArrayList<>();      // HISTORICO DE AÇÕES COMENTADAS
+
+    // Lista de anexos
+    @Builder.Default
+    private List<ArquivoModel> anexos = new ArrayList<>();              // ANEXOS INSERIDOS
+
+    private double valorRetornado;                                      // VALOR FINANCEIRO RETORNADO
+    private StatusEtapa statusExecucao;                                 // STATUS { IF statusPlano == "INICIADO" { statusExecucao = "AGUARDANDO" } IF statusPlano == "FINALIZADO" { statusExecucao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusExecucao = "FINALIZADO" } }
+
 }
