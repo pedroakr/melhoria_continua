@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Certificado {
+public class CertificadoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,7 +18,7 @@ public class Certificado {
 
     @ManyToOne
     @JoinColumn(name = "melhoria_id", nullable = false)
-    private Melhoria melhoria;
+    private MelhoriaModel melhoria;
 
     private String caminhoArquivo; // onde foi salvo o PDF
 

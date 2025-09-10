@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.Plano;
+import com.cottonstar.melhorias.model.PlanoModel;
 import com.cottonstar.melhorias.repository.PlanoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ public class PlanoService {
 
     private final PlanoRepository planoRepository;
 
-    public Plano salvar(Plano plano) {
-        return planoRepository.save(plano);
+    public PlanoModel salvar(PlanoModel planoModel) {
+        return planoRepository.save(planoModel);
     }
 
-    public Optional<Plano> buscarPorId(String id) {
+    public Optional<PlanoModel> buscarPorId(String id) {
         return planoRepository.findById(id);
     }
 }

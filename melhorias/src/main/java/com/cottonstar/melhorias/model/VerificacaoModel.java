@@ -1,14 +1,20 @@
 package com.cottonstar.melhorias.model;
 
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import lombok.*;
 
-public class Verificacao {
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class VerificacaoModel {
     private String id;
     private String indicadoresAnalisados;   // Qual metodo foi usado para analisar a melhoria?
     private String resultadosObtidos;       // Resultado do metodo usado
     private Boolean metasAtingidas;         // Quais objetivos definidos no plano foram atingidos
-
-    private String participantesVerificacao;           // Receberá os valores e agrupará por ; para armazenar no DB (Aplicar metodo para validar a existencia do usuaio)
-
+    private LocalDate inicioPlano;          // Data inicial gerada automaticamente ao preencher e salvar
+    private LocalDate fimPlano;             // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
     private StatusEtapa statusVerificacao;
 }

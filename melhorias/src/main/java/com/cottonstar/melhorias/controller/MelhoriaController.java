@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.controller;
 
-import com.cottonstar.melhorias.model.Melhoria;
+import com.cottonstar.melhorias.model.MelhoriaModel;
 import com.cottonstar.melhorias.service.MelhoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,24 +17,28 @@ public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
 
+    public MelhoriaController(MelhoriaService melhoriaService) {
+        this.melhoriaService = melhoriaService;
+    }
+
     // --- Criar melhoria ---
     @PostMapping
-    public ResponseEntity<Melhoria> criarMelhoria(@RequestBody Melhoria melhoria) {
-        Melhoria novaMelhoria = melhoriaService.criarMelhoria(melhoria);
-        return new ResponseEntity<>(novaMelhoria, HttpStatus.CREATED);
+    public ResponseEntity<MelhoriaModel> criarMelhoria(@RequestBody MelhoriaModel melhoriaModel) {
+        MelhoriaModel novaMelhoriaModel = melhoriaService.criarMelhoria(melhoriaModel);
+        return new ResponseEntity<>(novaMelhoriaModel, HttpStatus.CREATED);
     }
 
     // --- Listar todas as melhorias ---
     @GetMapping
-    public ResponseEntity<List<Melhoria>> listarMelhorias() {
-        List<Melhoria> melhorias = melhoriaService.listarTodas();
-        return new ResponseEntity<>(melhorias, HttpStatus.OK);
+    public ResponseEntity<List<MelhoriaModel>> listarMelhorias() {
+        List<MelhoriaModel> melhoriaModels = melhoriaService.listarTodas();
+        return new ResponseEntity<>(melhoriaModels, HttpStatus.OK);
     }
 
     // --- Buscar melhoria por ID ---
     @GetMapping("/{id}")
-    public ResponseEntity<Melhoria> buscarMelhoriaPorId(@PathVariable String id) {
-        Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
+    public ResponseEntity<MelhoriaModel> buscarMelhoriaPorId(@PathVariable String id) {
+        Optional<MelhoriaModel> melhoria = melhoriaService.buscarPorId(id);
         return melhoria
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -42,13 +46,13 @@ public class MelhoriaController {
 
     // --- Atualizar melhoria ---
     @PutMapping("/{id}")
-    public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable String id, @RequestBody Melhoria melhoriaAtualizada) {
-        Optional<Melhoria> melhoriaExistente = melhoriaService.buscarPorId(id);
+    public ResponseEntity<MelhoriaModel> atualizarMelhoria(@PathVariable String id, @RequestBody MelhoriaModel melhoriaModelAtualizada) {
+        Optional<MelhoriaModel> melhoriaExistente = melhoriaService.buscarPorId(id);
 
         if (melhoriaExistente.isPresent()) {
-            melhoriaAtualizada.setId(id);  // garante que estamos atualizando o ID correto
-            Melhoria melhoriaSalva = melhoriaService.atualizarMelhoria(melhoriaAtualizada);
-            return new ResponseEntity<>(melhoriaSalva, HttpStatus.OK);
+            melhoriaModelAtualizada.setId(id);  // garante que estamos atualizando o ID correto
+            MelhoriaModel melhoriaModelSalva = melhoriaService.atualizarMelhoria(melhoriaModelAtualizada);
+            return new ResponseEntity<>(melhoriaModelSalva, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -57,7 +61,7 @@ public class MelhoriaController {
     // --- Deletar melhoria ---
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMelhoria(@PathVariable String id) {
-        Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
+        Optional<MelhoriaModel> melhoria = melhoriaService.buscarPorId(id);
 
         if (melhoria.isPresent()) {
             melhoriaService.deletarMelhoria(id);

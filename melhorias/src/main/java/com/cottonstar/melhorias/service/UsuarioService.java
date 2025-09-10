@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.Usuario;
+import com.cottonstar.melhorias.model.UsuarioModel;
 import com.cottonstar.melhorias.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,24 +14,24 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public Usuario criarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioModel criarUsuario(UsuarioModel usuarioModel) {
+        return usuarioRepository.save(usuarioModel);
     }
 
-    public Optional<Usuario> buscarPorId(String id) {
+    public Optional<UsuarioModel> buscarPorId(String id) {
         return usuarioRepository.findById(id);
     }
 
-    public Optional<Usuario> buscarPorEmail(String email) {
+    public Optional<UsuarioModel> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    public List<Usuario> listarTodos() {
+    public List<UsuarioModel> listarTodos() {
         return usuarioRepository.findAll();
     }
 
-    public Usuario atualizarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioModel atualizarUsuario(UsuarioModel usuarioModel) {
+        return usuarioRepository.save(usuarioModel);
     }
 
     public void deletarUsuario(String id) {

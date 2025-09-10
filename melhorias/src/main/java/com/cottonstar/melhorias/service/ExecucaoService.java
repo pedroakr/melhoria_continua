@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.Execucao;
+import com.cottonstar.melhorias.model.ExecucaoModel;
 import com.cottonstar.melhorias.repository.ExecucaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ public class ExecucaoService {
 
     private final ExecucaoRepository execucaoRepository;
 
-    public Execucao salvar(Execucao execucao) {
-        return execucaoRepository.save(execucao);
+    public ExecucaoModel salvar(ExecucaoModel execucaoModel) {
+        return execucaoRepository.save(execucaoModel);
     }
 
-    public Optional<Execucao> buscarPorId(String id) {
+    public Optional<ExecucaoModel> buscarPorId(String id) {
         return execucaoRepository.findById(id);
     }
 }
