@@ -17,4 +17,13 @@ public class ComentarioModel {
     private Integer id;
     private String mensagem;
     private LocalDateTime dataComentario;       // GERADO AUTOMATICAMENTE
+
+    // Relacionamentos
+    @ManyToOne
+    @JoinColumn(name = "melhoria_fk")
+    private MelhoriaModel melhoriaFk;
+
+    @ManyToOne
+    @JoinColumn(name = "execucao_fk")
+    private ExecucaoModel execucaoFk;
 }

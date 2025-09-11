@@ -42,7 +42,8 @@ public class MelhoriaModel {
     private VerificacaoModel verificacaoModel;                // RESULTADOS
     private AprendizadoModel aprendizadoModel;                // APRENDIZADO
 
-    private List<ComentarioModel> comentarios;
+    @OneToMany(mappedBy = "melhoriaFk", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComentarioModel> comentariosMelhoria;
 }
 
 

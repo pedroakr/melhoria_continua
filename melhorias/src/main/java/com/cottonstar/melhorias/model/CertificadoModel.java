@@ -17,6 +17,7 @@ public class CertificadoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // Verificar
     @ManyToOne
     @JoinColumn(name = "melhoria_id", nullable = false)
     private MelhoriaModel melhoria;
