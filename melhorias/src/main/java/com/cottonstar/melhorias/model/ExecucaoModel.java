@@ -1,18 +1,23 @@
 package com.cottonstar.melhorias.model;
 
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Entity
+@Table(name = "tb_execucao")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ExecucaoModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private LocalDate inicioExecucao;                                   // DATA INICIAL GERADA AUTOMATICAMENTE
     private LocalDate fimExecucao;                                      // DATA FINAL GERADA AUTOMATICAMENTE
     private ParticipacaoExecucaoModel participantesExecucao;

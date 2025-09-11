@@ -2,14 +2,20 @@ package com.cottonstar.melhorias.model;
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Entity
+@Table(name = "tb_plano")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class PlanoModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String analiseProblema;                     // DESCRIÇÃO DO PROBLEMA
     private String estrategia;                          // O QUE SERÁ FEITO
     private String objetivos;                           // RESULTADO ESPERADO

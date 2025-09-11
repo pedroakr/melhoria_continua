@@ -1,15 +1,19 @@
 package com.cottonstar.melhorias.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Table(name = "tb_arquivos")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ArquivoModel {
-
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nome;              // nome do arquivo
     private String tipo;              // extensão ou tipo MIME
     private byte[] conteudo;          // conteúdo do arquivo

@@ -1,16 +1,18 @@
 package com.cottonstar.melhorias.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Entity
+@Table(name = "tb_participantes_execucao")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ParticipacaoExecucaoModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private UsuarioModel usuarioId;
     private ExecucaoModel execucaoId;
 }

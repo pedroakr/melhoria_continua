@@ -1,16 +1,21 @@
 package com.cottonstar.melhorias.model;
 
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Entity
+@Table(name = "tb_aprendizado")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class AprendizadoModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String descricaoAprendizado;        // DESCRIÇÃO DO QUE FOI APRENDIDO
     private LocalDate inicioAprendizado;        // DATA INICIAL            { IF statusAprendizado == "INICIADO" { inicioAprendizado = DATA ATUAL } }
     private LocalDate fimAprendizado;           // DATA QUE FOI FINALIZADO { IF statusAprendizado == "FINALIZADO" { fimAprendizado = DATA ATUAL } }

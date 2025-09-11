@@ -1,14 +1,20 @@
 package com.cottonstar.melhorias.model;
 
 import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Entity
+@Table(name = "tb_comentarios")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ComentarioModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String mensagem;
     private LocalDateTime dataComentario;       // GERADO AUTOMATICAMENTE
 }

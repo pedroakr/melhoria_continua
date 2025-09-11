@@ -3,17 +3,24 @@ import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import com.cottonstar.melhorias.model.enums.TipoRetorno;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
-@Data
+// Tranforma classe em entidade no DB
+@Entity
+@Table(name = "tb_melhorias")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class MelhoriaModel {
-
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String titulo;
 
     // Enums
@@ -26,8 +33,8 @@ public class MelhoriaModel {
     private UsuarioModel responsavel;               // QUEM CADASTROU -> Pega automatico pelo login
     private UsuarioModel gestor;                    // QUEM APROVA/ACOMPANHA
 
-    private LocalDateTime dataCriacao;              // GERADO DE FORMA AUTOMATICA
-    private LocalDateTime dataConclusao;            // GERADO DE FORMA AUTOMATICA
+    private LocalDate dataCriacao;              // GERADO DE FORMA AUTOMATICA
+    private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
 
     // Cada melhoria segue o PDCL
     private PlanoModel planoModel;                            // IDENTIFICACAO E PLANEJAMENTO
@@ -35,7 +42,7 @@ public class MelhoriaModel {
     private VerificacaoModel verificacaoModel;                // RESULTADOS
     private AprendizadoModel aprendizadoModel;                // APRENDIZADO
 
-    private ComentarioModel comentarioModels;                 // COMENTARIO / MENSSAGEM
+    private List<ComentarioModel> comentarios;
 }
 
 

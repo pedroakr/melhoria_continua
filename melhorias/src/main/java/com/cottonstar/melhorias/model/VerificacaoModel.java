@@ -1,16 +1,21 @@
 package com.cottonstar.melhorias.model;
 
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Entity
+@Table(name = "tb_verificacao")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class VerificacaoModel {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String indicadoresAnalisados;   // Qual metodo foi usado para analisar a melhoria?
     private String resultadosObtidos;       // Resultado do metodo usado
     private Boolean metasAtingidas;         // Quais objetivos definidos no plano foram atingidos

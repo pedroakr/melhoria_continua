@@ -6,21 +6,22 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Table(name = "tb_certificados")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CertificadoModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "melhoria_id", nullable = false)
     private MelhoriaModel melhoria;
 
-    private String caminhoArquivo; // onde foi salvo o PDF
+    private String caminhoArquivo;                          // onde foi salvo o PDF
 
     private LocalDateTime dataGeracao;
 }
