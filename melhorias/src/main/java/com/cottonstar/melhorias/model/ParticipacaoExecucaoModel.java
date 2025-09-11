@@ -13,6 +13,12 @@ public class ParticipacaoExecucaoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private UsuarioModel usuarioId;
-    private ExecucaoModel execucaoId;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "execucao_id", nullable = false)
+    private ExecucaoModel execucao;
 }

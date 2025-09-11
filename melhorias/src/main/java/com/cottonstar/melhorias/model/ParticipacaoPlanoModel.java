@@ -13,6 +13,12 @@ public class ParticipacaoPlanoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private UsuarioModel usuarioId;
-    private PlanoModel planoId;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "plano_id", nullable = false)
+    private PlanoModel plano;
 }

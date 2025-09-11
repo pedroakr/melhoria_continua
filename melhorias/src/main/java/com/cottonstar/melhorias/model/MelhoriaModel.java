@@ -16,34 +16,75 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
+@Builder
 public class MelhoriaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String titulo;
 
-    // Enums
-    private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
-    private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
-    private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
-    private StatusMelhoria status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
-
-    // Classe
+    // CLASSES
+    @ManyToOne
+    @JoinColumn(name = "responsavel_fk", nullable = false)
     private UsuarioModel responsavel;               // QUEM CADASTROU -> Pega automatico pelo login
+
+    @ManyToOne
+    @JoinColumn(name = "gestor_fk")
     private UsuarioModel gestor;                    // QUEM APROVA/ACOMPANHA
 
-    private LocalDate dataCriacao;              // GERADO DE FORMA AUTOMATICA
-    private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
+    @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL)
+    private CertificadoModel certificado;
 
-    // Cada melhoria segue o PDCL
-    private PlanoModel planoModel;                            // IDENTIFICACAO E PLANEJAMENTO
-    private ExecucaoModel execucaoModel;                      // ACOMPANHAMENTO
-    private VerificacaoModel verificacaoModel;                // RESULTADOS
-    private AprendizadoModel aprendizadoModel;                // APRENDIZADO
+    // PDCL
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "plano_fk", nullable = true ,referencedColumnName = "id")
+    private PlanoModel plano;                            // IDENTIFICACAO E PLANEJAMENTO
 
-    @OneToMany(mappedBy = "melhoriaFk", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "execucao_fk", nullable = true, referencedColumnName = "id")
+    private ExecucaoModel execucao;                      // ACOMPANHAMENTO
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "verificacao_fk", nullable = true, referencedColumnName = "id")
+    private VerificacaoModel verificacao;                // RESULTADOS
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "aprendizado_fk", nullable = true, referencedColumnName = "id")
+    private AprendizadoModel aprendizado;                // APRENDIZADO
+
+    // COMENTARIOS
+    @OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ComentarioModel> comentariosMelhoria;
+
+    // ENUMS
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private StatusMelhoria status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
+
+    // DATAS --(REVISAR QUANDO DESENVOVER O .JS)
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    private LocalDate dataCriacao;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDate.now();     // GERADO DE FORMA AUTOMATICA
+    }
+
+    private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
 }
 
 

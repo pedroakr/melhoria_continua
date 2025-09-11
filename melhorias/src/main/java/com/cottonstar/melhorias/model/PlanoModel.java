@@ -1,8 +1,12 @@
 package com.cottonstar.melhorias.model;
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,12 +20,38 @@ public class PlanoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String analiseProblema;                     // DESCRIÇÃO DO PROBLEMA
+
+    @Column(columnDefinition = "TEXT")
     private String estrategia;                          // O QUE SERÁ FEITO
+
+    @Column(columnDefinition = "TEXT")
     private String objetivos;                           // RESULTADO ESPERADO
-    private ParticipacaoPlanoModel participantesPlano;  // USUARIOS QUE PARTICIPARÃO
-    private double expectativaFinanceira;               // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
-    private LocalDate inicioPlano;                      // DATA INICIDA (GERADO AO STARTAR) { IF statusPlano == "INICIADO" }
-    private LocalDate fimPlano;                         // DATA FINAL (GERADO AO FINALIZAR) { IF statusPlano == "FINALIZADO" }
+
+    @Column(name = "valor_expectativa", precision = 15, scale = 2)
+    private BigDecimal expectativaFinanceira = BigDecimal.ZERO;               // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
+
+    @OneToMany(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ParticipacaoPlanoModel> participantesPlano = new ArrayList<>();          // USUARIOS QUE PARTICIPARÃO
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 20)
     private StatusEtapa statusPlano;                    // STATUS ATUAL { AO CRIAR MELHORIA (AÇÃO) STARTAR COMO "INICIADO", APÓS O USUARIO PODE ALTERAR PARA FINALIZADO QUANDO ACHAR NECESSARIO
+
+    @OneToOne(mappedBy = "planoModel")
+    @JsonIgnore
+    private MelhoriaModel melhoria;
+
+    // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)
+    @Column(name = "data_inicio", nullable = false, updatable = false)
+    private LocalDate inicioPlano;                      // DATA INICIDA (GERADO AO STARTAR) { IF statusPlano == "INICIADO" }
+
+    @PrePersist
+    protected void onCreate() {
+        this.inicioPlano = LocalDate.now();             // GERADO DE FORMA AUTOMATICA
+    }
+
+    private LocalDate fimPlano;                         // DATA FINAL (GERADO AO FINALIZAR) { IF statusPlano == "FINALIZADO" }
 }

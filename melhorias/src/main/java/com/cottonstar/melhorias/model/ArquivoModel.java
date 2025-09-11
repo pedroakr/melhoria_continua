@@ -14,9 +14,24 @@ public class ArquivoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nome;              // nome do arquivo
-    private String tipo;              // extensão ou tipo MIME
-    private byte[] conteudo;          // conteúdo do arquivo
+
+    // Caminho ou URL no sistema externo
+    @Column(name = "caminho_arquivo", nullable = false, length = 500)
+    private String caminhoArquivo;
+
+    @Column(name = "data_upload", nullable = false, updatable = false)
     private LocalDateTime dataUpload;
-    private UsuarioModel uploader;    // quem fez o upload
+
+    @PrePersist
+    protected void onUpload() {
+        this.dataUpload = LocalDateTime.now();
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "execucao_fk", nullable = false)
+    private ExecucaoModel execucao;
+
+    @ManyToOne
+    @JoinColumn(name = "verificacao_fk", nullable = false)
+    private VerificacaoModel verificacao;
 }

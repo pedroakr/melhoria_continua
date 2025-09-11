@@ -15,15 +15,25 @@ public class ComentarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String mensagem;
-    private LocalDateTime dataComentario;       // GERADO AUTOMATICAMENTE
 
     // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "melhoria_fk")
-    private MelhoriaModel melhoriaFk;
+    private MelhoriaModel melhoria;
 
     @ManyToOne
     @JoinColumn(name = "execucao_fk")
-    private ExecucaoModel execucaoFk;
+    private ExecucaoModel execucao;
+
+    // DATA (REVISAR NO DESENVOLVIMENTO DE REGRAS)
+    @JoinColumn(name = "data_comentario")
+    private LocalDateTime dataComentario;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataComentario = LocalDateTime.now();     // GERADO DE FORMA AUTOMATICA
+    }
 }
