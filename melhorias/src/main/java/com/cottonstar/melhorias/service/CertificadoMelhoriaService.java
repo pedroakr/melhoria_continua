@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor // Esta anotação já cria o construtor necessário.
 public class CertificadoMelhoriaService {
 
     private final CertificadoMelhoriaRepository certificadoRepository;
 
-    public CertificadoMelhoriaService(CertificadoMelhoriaRepository certificadoRepository) {
-        this.certificadoRepository = certificadoRepository;
-    }
+    // Construtor manual removido para resolver o conflito.
 
     public CertificadoModel salvar(CertificadoModel certificado) {
         return certificadoRepository.save(certificado);

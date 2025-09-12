@@ -34,9 +34,9 @@ public class VerificacaoModel {
     @Column(length = 20, nullable = false)
     private StatusEtapa statusVerificacao;  // STATUS { IF statusExecucao == "INICIADO" { statusVerificacao = "AGUARDANDO" } IF statusExecucao == "FINALIZADO" { statusVerificacao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusVerificacao = "FINALIZADO" }}
 
-    @OneToOne(mappedBy = "verificacaoModel")
+    @OneToOne(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private ExecucaoModel melhoria;
+    private MelhoriaModel melhoria;
 
     @OneToMany(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArquivoModel> anexosVerificacao = new ArrayList<>();

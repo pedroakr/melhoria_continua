@@ -18,10 +18,10 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 60)
     private String nome;
 
-    @Column(name = "email", nullable = false, length = 30, unique = true)
+    @Column(name = "email", nullable = false, length = 60, unique = true)
     private String email;
 
     //@Column(name = "departamento", length = 30)       É ENUM - CUIDAR

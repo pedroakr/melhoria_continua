@@ -1,8 +1,10 @@
 package com.cottonstar.melhorias.model;
+
 import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import com.cottonstar.melhorias.model.enums.TipoRetorno;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

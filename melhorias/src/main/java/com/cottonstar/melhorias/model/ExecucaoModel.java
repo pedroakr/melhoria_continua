@@ -34,12 +34,12 @@ public class ExecucaoModel {
     @Column(length = 20, nullable = false)
     private StatusEtapa statusExecucao;                                 // STATUS { IF statusPlano == "INICIADO" { statusExecucao = "AGUARDANDO" } IF statusPlano == "FINALIZADO" { statusExecucao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusExecucao = "FINALIZADO" } }
 
-    @OneToOne(mappedBy = "execucaoModel")
+    @OneToOne(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private MelhoriaModel melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)
-    @Column(name = "data_criacao", nullable = false, updatable = false)
+    @Column(name = "data_inicio", nullable = false, updatable = false)
     private LocalDate inicioExecucao;
 
     @PrePersist

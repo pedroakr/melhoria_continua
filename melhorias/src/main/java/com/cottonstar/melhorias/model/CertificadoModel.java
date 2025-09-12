@@ -32,7 +32,7 @@ public class CertificadoModel {
     private Set<UsuarioModel> usuarios = new HashSet<>();
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DE REGRAS)
-    @Column(name = "data_criacao", nullable = false, updatable = false)
+    @Column(name = "data_geracao", nullable = false, updatable = false)
     private LocalDate dataCertificado;
 
     @PrePersist

@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor // A anotação do Lombok gera o construtor necessário
 public class MelhoriaService {
 
     private final MelhoriaRepository melhoriaRepository;
 
-    public MelhoriaService(MelhoriaRepository melhoriaRepository) {
-        this.melhoriaRepository = melhoriaRepository;
-    }
+    // Construtor manual foi removido daqui para evitar duplicidade.
 
     public MelhoriaModel criarMelhoria(MelhoriaModel melhoriaModel) {
         return melhoriaRepository.save(melhoriaModel);

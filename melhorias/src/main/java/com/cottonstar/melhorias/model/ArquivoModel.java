@@ -28,10 +28,10 @@ public class ArquivoModel {
     }
 
     @ManyToOne
-    @JoinColumn(name = "execucao_fk", nullable = false)
+    @JoinColumn(name = "execucao_fk", nullable = true)
     private ExecucaoModel execucao;
 
     @ManyToOne
-    @JoinColumn(name = "verificacao_fk", nullable = false)
+    @JoinColumn(name = "verificacao_fk", nullable = true)
     private VerificacaoModel verificacao;
 }

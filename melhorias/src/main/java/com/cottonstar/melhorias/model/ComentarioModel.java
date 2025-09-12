@@ -29,7 +29,7 @@ public class ComentarioModel {
     private ExecucaoModel execucao;
 
     // DATA (REVISAR NO DESENVOLVIMENTO DE REGRAS)
-    @JoinColumn(name = "data_comentario")
+    @Column(name = "data_comentario", nullable = false, updatable = false)
     private LocalDateTime dataComentario;
 
     @PrePersist

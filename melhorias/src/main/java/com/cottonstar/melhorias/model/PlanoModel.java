@@ -1,4 +1,5 @@
 package com.cottonstar.melhorias.model;
+
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
 
 import java.math.BigDecimal;
@@ -40,7 +41,7 @@ public class PlanoModel {
     @Column(name = "status", nullable = false, length = 20)
     private StatusEtapa statusPlano;                    // STATUS ATUAL { AO CRIAR MELHORIA (AÇÃO) STARTAR COMO "INICIADO", APÓS O USUARIO PODE ALTERAR PARA FINALIZADO QUANDO ACHAR NECESSARIO
 
-    @OneToOne(mappedBy = "planoModel")
+    @OneToOne(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private MelhoriaModel melhoria;
 
