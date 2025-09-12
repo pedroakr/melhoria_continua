@@ -61,19 +61,19 @@ public class Melhoria {
 
     // ENUMS
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "tamanho", length = 20, nullable = false)
     private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "retorno", length = 20, nullable = false)
     private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "departamento", length = 20, nullable = false)
     private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "status", length = 20, nullable = false)
     private StatusMelhoria status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
 
     // DATAS --(REVISAR QUANDO DESENVOVER O .JS)
@@ -85,6 +85,7 @@ public class Melhoria {
         this.dataCriacao = LocalDate.now();     // GERADO DE FORMA AUTOMATICA
     }
 
+    @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
 }
 

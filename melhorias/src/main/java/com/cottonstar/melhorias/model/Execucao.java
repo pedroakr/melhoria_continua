@@ -31,7 +31,7 @@ public class Execucao {
     private List<Arquivo> anexosExecucao = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "status", length = 20, nullable = false)
     private StatusEtapa statusExecucao;                                 // STATUS { IF statusPlano == "INICIADO" { statusExecucao = "AGUARDANDO" } IF statusPlano == "FINALIZADO" { statusExecucao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusExecucao = "FINALIZADO" } }
 
     @OneToOne(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -47,5 +47,6 @@ public class Execucao {
         this.inicioExecucao = LocalDate.now();     // GERADO DE FORMA AUTOMATICA
     }
 
+    @Column(name = "data_fim", nullable = false, updatable = false)
     private LocalDate fimExecucao;
 }

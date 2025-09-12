@@ -18,11 +18,11 @@ public class Aprendizado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricaoAprendizado;                        // DESCRIÇÃO DO QUE FOI APRENDIDO
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "status", length = 20, nullable = false)
     private StatusEtapa statusAprendizado;                      // STATUS ATUAL { IF statusVerificacao == "AGUARDANDO" { statusAprendizado = "AGUARDANDO"  } IF statusVerificacao == "FINALIZADO" { statusAprendizado = "INICIADO" } IF PRESS_BOTAO_FINALIZAR = TRUE { statusAprendizado = "FINALIZADO" } }
 
     @OneToOne(mappedBy = "aprendizado", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,6 +37,6 @@ public class Aprendizado {
     protected void onCreate() {
         this.inicioAprendizado = LocalDate.now();
     }
-
+    @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimAprendizado;                           // DATA QUE FOI FINALIZADO { IF statusAprendizado == "FINALIZADO" { fimAprendizado = DATA ATUAL } }
 }

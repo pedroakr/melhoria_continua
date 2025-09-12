@@ -23,13 +23,13 @@ public class Plano {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "analise", columnDefinition = "TEXT")
     private String analiseProblema;                     // DESCRIÇÃO DO PROBLEMA
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "estrategia", columnDefinition = "TEXT")
     private String estrategia;                          // O QUE SERÁ FEITO
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "objetivos", columnDefinition = "TEXT")
     private String objetivos;                           // RESULTADO ESPERADO
 
     @Column(name = "valor_expectativa", precision = 15, scale = 2)
@@ -57,6 +57,6 @@ public class Plano {
     protected void onCreate() {
         this.inicioPlano = LocalDate.now();             // GERADO DE FORMA AUTOMATICA
     }
-
+    @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimPlano;                         // DATA FINAL (GERADO AO FINALIZAR) { IF statusPlano == "FINALIZADO" }
 }

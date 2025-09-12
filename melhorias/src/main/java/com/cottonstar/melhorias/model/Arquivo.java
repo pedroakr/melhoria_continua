@@ -16,10 +16,10 @@ public class Arquivo {
     private Integer id;
 
     // Caminho ou URL no sistema externo
-    @Column(name = "caminho_arquivo", nullable = false, length = 500)
+    @Column(name = "caminho", nullable = false, length = 500)
     private String caminhoArquivo;
 
-    @Column(name = "data_upload", nullable = false, updatable = false)
+    @Column(name = "data", nullable = false, updatable = false)
     private LocalDateTime dataUpload;
 
     @PrePersist

@@ -16,8 +16,8 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "TEXT")
-    private String mensagem;
+    @Column(name = "menssagem", columnDefinition = "TEXT")
+    private String menssagem;
 
     // Relacionamentos
     @ManyToOne

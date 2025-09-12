@@ -21,10 +21,10 @@ public class Verificacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "TEXT",  nullable = false)
+    @Column(name = "indicadores_analisados", columnDefinition = "TEXT",  nullable = false)
     private String indicadoresAnalisados;
 
-    @Column(columnDefinition = "TEXT",  nullable = false)
+    @Column(name = "resultados_obtidos", columnDefinition = "TEXT",  nullable = false)
     private String resultadosObtidos;
 
     @Column(name = "valor_retornado", precision = 15, scale = 2)
@@ -34,7 +34,7 @@ public class Verificacao {
     private BigDecimal tempoRetornado;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(name = "status", length = 20, nullable = false)
     private StatusEtapa statusVerificacao;  // STATUS { IF statusExecucao == "INICIADO" { statusVerificacao = "AGUARDANDO" } IF statusExecucao == "FINALIZADO" { statusVerificacao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusVerificacao = "FINALIZADO" }}
 
     @OneToOne(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,5 +53,6 @@ public class Verificacao {
         this.inicioVerificacao = LocalDate.now();
     }
 
+    @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimVerificacao;             // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
 }
