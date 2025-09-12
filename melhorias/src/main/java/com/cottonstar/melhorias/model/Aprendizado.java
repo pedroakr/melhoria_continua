@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AprendizadoModel {
+public class Aprendizado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,7 +27,7 @@ public class AprendizadoModel {
 
     @OneToOne(mappedBy = "aprendizado", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DO .JS)
     @Column(name = "data_inicio", nullable = false, updatable = false)

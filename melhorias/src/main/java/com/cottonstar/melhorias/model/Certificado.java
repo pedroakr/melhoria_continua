@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "tb_certificados")
 @Getter
 @Setter
-public class CertificadoModel {
+public class Certificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,7 +20,7 @@ public class CertificadoModel {
     @OneToOne
     @JoinColumn(name = "melhoria_fk", nullable = false, referencedColumnName = "id")
     @JsonIgnore
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     @ManyToMany
     @JoinTable(
@@ -29,7 +29,7 @@ public class CertificadoModel {
             inverseJoinColumns = @JoinColumn(name = "usuario_fk")
     )
 
-    private Set<UsuarioModel> usuarios = new HashSet<>();
+    private Set<Usuario> usuarios = new HashSet<>();
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DE REGRAS)
     @Column(name = "data_geracao", nullable = false, updatable = false)

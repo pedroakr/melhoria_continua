@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArquivoModel {
+public class Arquivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,9 +29,9 @@ public class ArquivoModel {
 
     @ManyToOne
     @JoinColumn(name = "execucao_fk", nullable = true)
-    private ExecucaoModel execucao;
+    private Execucao execucao;
 
     @ManyToOne
     @JoinColumn(name = "verificacao_fk", nullable = true)
-    private VerificacaoModel verificacao;
+    private Verificacao verificacao;
 }

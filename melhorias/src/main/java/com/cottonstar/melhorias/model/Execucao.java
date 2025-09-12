@@ -15,20 +15,20 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecucaoModel {
+public class Execucao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParticipacaoExecucaoModel> participantesExecucao = new ArrayList<>();
+    private List<ParticipacaoExecucao> participantesExecucao = new ArrayList<>();
 
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ComentarioModel> comentariosExecucao;
+    private List<Comentario> comentariosExecucao;
 
     // Lista de anexos
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ArquivoModel> anexosExecucao = new ArrayList<>();
+    private List<Arquivo> anexosExecucao = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -36,7 +36,7 @@ public class ExecucaoModel {
 
     @OneToOne(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)
     @Column(name = "data_inicio", nullable = false, updatable = false)

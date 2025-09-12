@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.ComentarioModel;
+import com.cottonstar.melhorias.model.Comentario;
 import com.cottonstar.melhorias.repository.ComentarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ public class ComentarioService {
 
     private final ComentarioRepository comentarioRepository;
 
-    public ComentarioModel salvar(ComentarioModel comentarioModel) {
-        return comentarioRepository.save(comentarioModel);
+    public Comentario salvar(Comentario comentario) {
+        return comentarioRepository.save(comentario);
     }
 
-    public List<ComentarioModel> listarTodos() {
+    public List<Comentario> listarTodos() {
         return comentarioRepository.findAll();
     }
 }

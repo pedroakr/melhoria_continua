@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.AprendizadoModel;
+import com.cottonstar.melhorias.model.Aprendizado;
 import com.cottonstar.melhorias.repository.AprendizadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ public class AprendizadoService {
 
     private final AprendizadoRepository aprendizadoRepository;
 
-    public AprendizadoModel salvar(AprendizadoModel aprendizadoModel) {
-        return aprendizadoRepository.save(aprendizadoModel);
+    public Aprendizado salvar(Aprendizado aprendizado) {
+        return aprendizadoRepository.save(aprendizado);
     }
 
-    public Optional<AprendizadoModel> buscarPorId(String id) {
+    public Optional<Aprendizado> buscarPorId(String id) {
         return aprendizadoRepository.findById(id);
     }
 }

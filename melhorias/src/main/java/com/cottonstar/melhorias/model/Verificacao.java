@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VerificacaoModel {
+public class Verificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,16 +30,19 @@ public class VerificacaoModel {
     @Column(name = "valor_retornado", precision = 15, scale = 2)
     private BigDecimal valorRetornado = BigDecimal.ZERO;
 
+    @Column(name = "tempo_retornado", precision = 4, scale = 2)                   // RETORNO ESPERADO DE PRODUTIVIDADE
+    private BigDecimal tempoRetornado;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private StatusEtapa statusVerificacao;  // STATUS { IF statusExecucao == "INICIADO" { statusVerificacao = "AGUARDANDO" } IF statusExecucao == "FINALIZADO" { statusVerificacao = "INICIADO" } IF PRESIONADO_BOTAO_FINALIZAR == TRUE { statusVerificacao = "FINALIZADO" }}
 
     @OneToOne(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     @OneToMany(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ArquivoModel> anexosVerificacao = new ArrayList<>();
+    private List<Arquivo> anexosVerificacao = new ArrayList<>();
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DE REGRAS)
     @Column(name = "data_inicio", nullable = false, updatable = false)

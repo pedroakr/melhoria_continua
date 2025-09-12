@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_participantes_execucao")
+@Table(name = "tb_participantes_plano")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipacaoExecucaoModel {
+public class ParticipacaoPlano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private UsuarioModel usuario;
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "execucao_id", nullable = false)
-    private ExecucaoModel execucao;
+    @JoinColumn(name = "plano_id", nullable = false)
+    private Plano plano;
 }

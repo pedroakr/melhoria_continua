@@ -1,7 +1,7 @@
 package com.cottonstar.melhorias.repository;
 
-import com.cottonstar.melhorias.model.CertificadoModel;
+import com.cottonstar.melhorias.model.Certificado;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CertificadoMelhoriaRepository extends JpaRepository<CertificadoModel, String> {
+public interface CertificadoMelhoriaRepository extends JpaRepository<Certificado, String> {
 }

@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.MelhoriaModel;
+import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.repository.MelhoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,20 +16,20 @@ public class MelhoriaService {
 
     // Construtor manual foi removido daqui para evitar duplicidade.
 
-    public MelhoriaModel criarMelhoria(MelhoriaModel melhoriaModel) {
-        return melhoriaRepository.save(melhoriaModel);
+    public Melhoria criarMelhoria(Melhoria melhoria) {
+        return melhoriaRepository.save(melhoria);
     }
 
-    public Optional<MelhoriaModel> buscarPorId(String id) {
+    public Optional<Melhoria> buscarPorId(String id) {
         return melhoriaRepository.findById(id);
     }
 
-    public List<MelhoriaModel> listarTodas() {
+    public List<Melhoria> listarTodas() {
         return melhoriaRepository.findAll();
     }
 
-    public MelhoriaModel atualizarMelhoria(MelhoriaModel melhoriaModel) {
-        return melhoriaRepository.save(melhoriaModel);
+    public Melhoria atualizarMelhoria(Melhoria melhoria) {
+        return melhoriaRepository.save(melhoria);
     }
 
     public void deletarMelhoria(String id) {

@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ComentarioModel {
+public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,11 +22,11 @@ public class ComentarioModel {
     // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "melhoria_fk")
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     @ManyToOne
     @JoinColumn(name = "execucao_fk")
-    private ExecucaoModel execucao;
+    private Execucao execucao;
 
     // DATA (REVISAR NO DESENVOLVIMENTO DE REGRAS)
     @Column(name = "data_comentario", nullable = false, updatable = false)

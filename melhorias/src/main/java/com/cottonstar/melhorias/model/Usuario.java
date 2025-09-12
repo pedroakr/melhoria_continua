@@ -1,6 +1,5 @@
 package com.cottonstar.melhorias.model;
 
-//import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.PerfilAcesso;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,13 +12,16 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioModel {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nome", nullable = false, length = 60)
     private String nome;
+
+    @Column(name = "usuario", nullable = false, length = 40)
+    private String usuario;
 
     @Column(name = "email", nullable = false, length = 60, unique = true)
     private String email;
@@ -37,8 +39,8 @@ public class UsuarioModel {
 
     // PARA LISTAR AS MELHORIAS NO FRONT
     @OneToMany(mappedBy = "responsavel")
-    private List<MelhoriaModel> melhoriasResponsavel;   // MELHORIAS QUE O USUARIO TEM CADASTRADO
+    private List<Melhoria> melhoriasResponsavel;   // MELHORIAS QUE O USUARIO TEM CADASTRADO
 
     @OneToMany(mappedBy = "gestor")
-    private List<MelhoriaModel> melhoriasGestor;   // MELHORIAS QUE O GESTOR TEM DA EQUIPE
+    private List<Melhoria> melhoriasGestor;   // MELHORIAS QUE O GESTOR TEM DA EQUIPE
 }

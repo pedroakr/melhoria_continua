@@ -1,5 +1,8 @@
 package com.cottonstar.melhorias.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoRetorno {
     PRODUTIVIDADE("Produtividade"),
     FINANCEIRO("Financeiro"),
@@ -17,9 +20,5 @@ public enum TipoRetorno {
 
     TipoRetorno(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 }

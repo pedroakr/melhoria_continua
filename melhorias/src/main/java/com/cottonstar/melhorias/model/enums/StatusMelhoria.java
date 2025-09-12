@@ -1,5 +1,8 @@
 package com.cottonstar.melhorias.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum StatusMelhoria {
     CRIADO("Criado"),
     EM_ANDAMENTO("Em andamento"),
@@ -11,10 +14,6 @@ public enum StatusMelhoria {
 
     StatusMelhoria(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 }
 

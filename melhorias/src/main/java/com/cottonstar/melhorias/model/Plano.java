@@ -4,6 +4,7 @@ import com.cottonstar.melhorias.model.enums.StatusEtapa;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlanoModel {
+public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,10 +33,13 @@ public class PlanoModel {
     private String objetivos;                           // RESULTADO ESPERADO
 
     @Column(name = "valor_expectativa", precision = 15, scale = 2)
-    private BigDecimal expectativaFinanceira = BigDecimal.ZERO;               // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
+    private BigDecimal expectativaFinanceira = BigDecimal.ZERO;                     // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
+
+    @Column(name = "tempo_expectativa", precision = 4, scale = 2)                   // RETORNO ESPERADO DE PRODUTIVIDADE
+    private BigDecimal expectativaTempo;
 
     @OneToMany(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParticipacaoPlanoModel> participantesPlano = new ArrayList<>();          // USUARIOS QUE PARTICIPARÃO
+    private List<ParticipacaoPlano> participantesPlano = new ArrayList<>();          // USUARIOS QUE PARTICIPARÃO
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
@@ -43,7 +47,7 @@ public class PlanoModel {
 
     @OneToOne(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private MelhoriaModel melhoria;
+    private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)
     @Column(name = "data_inicio", nullable = false, updatable = false)

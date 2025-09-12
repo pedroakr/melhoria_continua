@@ -1,5 +1,8 @@
 package com.cottonstar.melhorias.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum PerfilAcesso {
     ADMIN("Administrador"),
     GERENCIA("Gerência"),
@@ -12,7 +15,4 @@ public enum PerfilAcesso {
         this.descricao = descricao;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
 }

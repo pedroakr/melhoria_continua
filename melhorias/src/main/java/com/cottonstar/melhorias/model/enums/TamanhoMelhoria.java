@@ -1,5 +1,8 @@
 package com.cottonstar.melhorias.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum TamanhoMelhoria {
     PEQUENA("Pequena"),        // Projetos simples                     -> SEM APROVAÇÃO  -  PONTUAÇÃO 3/LIDER 1/DEMAIS
     MEDIA("Média"),          // Projetos mais complexos              -> SEM APROVAÇÃO  -  PONTUAÇÃO 5/LIDER 2/DEMAIS
@@ -9,9 +12,5 @@ public enum TamanhoMelhoria {
 
     TamanhoMelhoria(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 }

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cottonstar</groupId>
-	<artifactId>melhoriaModels</artifactId>
+	<artifactId>melhorias</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Melhorias API</name>
 	<description>Cadastro de Melhorias</description>

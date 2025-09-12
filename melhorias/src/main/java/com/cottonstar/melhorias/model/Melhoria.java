@@ -4,7 +4,6 @@ import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import com.cottonstar.melhorias.model.enums.TipoRetorno;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MelhoriaModel {
+public class Melhoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,35 +29,35 @@ public class MelhoriaModel {
     // CLASSES
     @ManyToOne
     @JoinColumn(name = "responsavel_fk", nullable = false)
-    private UsuarioModel responsavel;               // QUEM CADASTROU -> Pega automatico pelo login
+    private Usuario responsavel;               // QUEM CADASTROU -> Pega automatico pelo login
 
     @ManyToOne
     @JoinColumn(name = "gestor_fk")
-    private UsuarioModel gestor;                    // QUEM APROVA/ACOMPANHA
+    private Usuario gestor;                    // QUEM APROVA/ACOMPANHA
 
     @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL)
-    private CertificadoModel certificado;
+    private Certificado certificado;
 
     // PDCL
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "plano_fk", nullable = true ,referencedColumnName = "id")
-    private PlanoModel plano;                            // IDENTIFICACAO E PLANEJAMENTO
+    private Plano plano;                            // IDENTIFICACAO E PLANEJAMENTO
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "execucao_fk", nullable = true, referencedColumnName = "id")
-    private ExecucaoModel execucao;                      // ACOMPANHAMENTO
+    private Execucao execucao;                      // ACOMPANHAMENTO
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "verificacao_fk", nullable = true, referencedColumnName = "id")
-    private VerificacaoModel verificacao;                // RESULTADOS
+    private Verificacao verificacao;                // RESULTADOS
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "aprendizado_fk", nullable = true, referencedColumnName = "id")
-    private AprendizadoModel aprendizado;                // APRENDIZADO
+    private Aprendizado aprendizado;                // APRENDIZADO
 
     // COMENTARIOS
     @OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ComentarioModel> comentariosMelhoria;
+    private List<Comentario> comentariosMelhoria;
 
     // ENUMS
     @Enumerated(EnumType.STRING)
