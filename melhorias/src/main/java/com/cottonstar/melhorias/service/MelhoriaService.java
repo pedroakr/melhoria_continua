@@ -20,7 +20,7 @@ public class MelhoriaService {
         return melhoriaRepository.save(melhoria);
     }
 
-    public Optional<Melhoria> buscarPorId(String id) {
+    public Optional<Melhoria> buscarPorId(Integer id) {
         return melhoriaRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class MelhoriaService {
         return melhoriaRepository.save(melhoria);
     }
 
-    public void deletarMelhoria(String id) {
+    public void deletarMelhoria(Integer id) {
         melhoriaRepository.deleteById(id);
     }
 }

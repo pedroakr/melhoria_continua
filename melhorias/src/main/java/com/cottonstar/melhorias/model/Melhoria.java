@@ -87,6 +87,28 @@ public class Melhoria {
 
     @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
+
+    @Override
+    public String toString() {
+        return "Melhoria{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", responsavel=" + responsavel +
+                ", gestor=" + gestor +
+                ", certificado=" + certificado +
+                ", plano=" + plano +
+                ", execucao=" + execucao +
+                ", verificacao=" + verificacao +
+                ", aprendizado=" + aprendizado +
+                ", comentariosMelhoria=" + comentariosMelhoria +
+                ", tamanhoMelhoria=" + tamanhoMelhoria +
+                ", tipoRetorno=" + tipoRetorno +
+                ", departamentoMelhoria=" + departamentoMelhoria +
+                ", status=" + status +
+                ", dataCriacao=" + dataCriacao +
+                ", dataConclusao=" + dataConclusao +
+                '}';
+    }
 }
 
 

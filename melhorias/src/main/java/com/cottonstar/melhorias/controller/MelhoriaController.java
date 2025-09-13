@@ -33,7 +33,7 @@ public class MelhoriaController {
 
     // --- Buscar melhoria por ID ---
     @GetMapping("/{id}")
-    public ResponseEntity<Melhoria> buscarMelhoriaPorId(@PathVariable String id) {
+    public ResponseEntity<Melhoria> buscarMelhoriaPorId(@PathVariable Integer id) {
         Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
         return melhoria
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -42,7 +42,7 @@ public class MelhoriaController {
 
     // --- Atualizar melhoria ---
     @PutMapping("/{id}")
-    public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable String id, @RequestBody Melhoria melhoriaAtualizada) {
+    public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable Integer id, @RequestBody Melhoria melhoriaAtualizada) {
         Optional<Melhoria> melhoriaExistente = melhoriaService.buscarPorId(id);
 
         if (melhoriaExistente.isPresent()) {
@@ -56,7 +56,7 @@ public class MelhoriaController {
 
     // --- Deletar melhoria ---
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarMelhoria(@PathVariable String id) {
+    public ResponseEntity<Void> deletarMelhoria(@PathVariable Integer id) {
         Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
 
         if (melhoria.isPresent()) {
