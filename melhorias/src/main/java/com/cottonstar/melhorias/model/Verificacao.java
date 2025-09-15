@@ -55,4 +55,11 @@ public class Verificacao {
 
     @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimVerificacao;             // Data final gerada automaticamente ao alterar StatusEtapa para "Finalizado"
+
+    @PreUpdate
+    protected void onUpdate() {
+        if (this.statusVerificacao == StatusEtapa.FINALIZADO && this.fimVerificacao == null) {
+            this.fimVerificacao = LocalDate.now();
+        }
+    }
 }

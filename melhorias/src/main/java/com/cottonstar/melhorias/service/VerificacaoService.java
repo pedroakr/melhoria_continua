@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.model.Verificacao;
-import com.cottonstar.melhorias.repository.VerificacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

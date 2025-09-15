@@ -1,6 +1,8 @@
 package com.cottonstar.melhorias.controller;
 
 import com.cottonstar.melhorias.model.Melhoria;
+import com.cottonstar.melhorias.model.Plano;
+import com.cottonstar.melhorias.repository.MelhoriaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cadastrar-melhoria")
 public class MelhoriaController1 {
+
+    private MelhoriaRepository melhoriaRepository;
+
+    public MelhoriaController1(MelhoriaRepository melhoriaRepository) {
+        this.melhoriaRepository = melhoriaRepository;
+    }
 
     // JOGA TITULO, DESCRIÇÃO, DEPARTAMENTO E STATUS PARA O CORPO DE MELHORIA CONTROLES
     @PostMapping

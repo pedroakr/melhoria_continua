@@ -1,9 +1,6 @@
 package com.cottonstar.melhorias.model;
 
-import com.cottonstar.melhorias.model.enums.Departamento;
-import com.cottonstar.melhorias.model.enums.StatusMelhoria;
-import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
-import com.cottonstar.melhorias.model.enums.TipoRetorno;
+import com.cottonstar.melhorias.model.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -74,7 +71,7 @@ public class Melhoria {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
-    private StatusMelhoria status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
+    private StatusEtapa status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
 
     // DATAS --(REVISAR QUANDO DESENVOVER O .JS)
     @Column(name = "data_criacao", nullable = false, updatable = false)
@@ -87,6 +84,13 @@ public class Melhoria {
 
     @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
+
+    @PreUpdate
+    protected void onUpdate() {
+        if (this.status == StatusEtapa.FINALIZADO && this.dataConclusao == null) {
+            this.dataConclusao = LocalDate.now();
+        }
+    }
 
     @Override
     public String toString() {

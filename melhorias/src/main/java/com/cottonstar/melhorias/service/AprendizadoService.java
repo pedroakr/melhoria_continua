@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.model.Aprendizado;
-import com.cottonstar.melhorias.repository.AprendizadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

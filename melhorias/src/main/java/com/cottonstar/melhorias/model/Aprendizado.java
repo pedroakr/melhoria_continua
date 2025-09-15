@@ -39,4 +39,12 @@ public class Aprendizado {
     }
     @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimAprendizado;                           // DATA QUE FOI FINALIZADO { IF statusAprendizado == "FINALIZADO" { fimAprendizado = DATA ATUAL } }
+
+    @PreUpdate
+    protected void onUpdate() {
+        if (this.statusAprendizado == StatusEtapa.FINALIZADO && this.fimAprendizado == null) {
+            this.fimAprendizado = LocalDate.now();
+        }
+    }
+
 }

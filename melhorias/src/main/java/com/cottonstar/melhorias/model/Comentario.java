@@ -17,7 +17,7 @@ public class Comentario {
     private Integer id;
 
     @Column(name = "menssagem", columnDefinition = "TEXT")
-    private String menssagem;
+    private String mensagem;
 
     // Relacionamentos
     @ManyToOne

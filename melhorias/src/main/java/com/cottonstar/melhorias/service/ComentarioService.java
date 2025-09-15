@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.model.Comentario;
-import com.cottonstar.melhorias.repository.ComentarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

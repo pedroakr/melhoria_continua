@@ -4,7 +4,6 @@ import com.cottonstar.melhorias.model.enums.StatusEtapa;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,4 +58,11 @@ public class Plano {
     }
     @Column(name = "data_fim", nullable = true, updatable = false)
     private LocalDate fimPlano;                         // DATA FINAL (GERADO AO FINALIZAR) { IF statusPlano == "FINALIZADO" }
+
+    @PreUpdate
+    protected void onUpdate() {
+        if (this.statusPlano == StatusEtapa.FINALIZADO && this.fimPlano == null) {
+            this.fimPlano = LocalDate.now();
+        }
+    }
 }

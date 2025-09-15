@@ -39,8 +39,15 @@ public class Usuario {
 
     // PARA LISTAR AS MELHORIAS NO FRONT
     @OneToMany(mappedBy = "responsavel")
-    private List<Melhoria> melhoriasResponsavel;   // MELHORIAS QUE O USUARIO TEM CADASTRADO
+    private List<Melhoria> melhoriasResponsavel;                // MELHORIAS QUE O USUARIO TEM CADASTRADO
 
     @OneToMany(mappedBy = "gestor")
-    private List<Melhoria> melhoriasGestor;   // MELHORIAS QUE O GESTOR TEM DA EQUIPE
+    private List<Melhoria> melhoriasGestor;                     // MELHORIAS QUE O GESTOR TEM DA EQUIPE
+
+    @OneToMany(mappedBy = "usuario")
+    private List<ParticipacaoPlano> participacoesPlano;         // PARTICIPAÇÕES DO USUÁRIO NOS PLANOS DE AÇÃO
+
+    @OneToMany(mappedBy = "usuario")
+    private List<ParticipacaoExecucao> participacoesExecucao;   // PARTICIPAÇÕES DO USUÁRIO NAS EXECUÇÕES
+
 }

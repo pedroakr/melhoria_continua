@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.model.Plano;
-import com.cottonstar.melhorias.repository.PlanoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

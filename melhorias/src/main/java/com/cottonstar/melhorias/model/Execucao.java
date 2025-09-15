@@ -49,4 +49,11 @@ public class Execucao {
 
     @Column(name = "data_fim", nullable = false, updatable = false)
     private LocalDate fimExecucao;
+
+    @PreUpdate
+    protected void onUpdate() {
+        if (this.statusExecucao == StatusEtapa.FINALIZADO && this.fimExecucao == null) {
+            this.fimExecucao = LocalDate.now();
+        }
+    }
 }
