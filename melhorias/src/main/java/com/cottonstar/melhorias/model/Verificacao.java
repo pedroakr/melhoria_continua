@@ -19,7 +19,7 @@ import java.util.List;
 public class Verificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "indicadores_analisados", columnDefinition = "TEXT",  nullable = false)
     private String indicadoresAnalisados;

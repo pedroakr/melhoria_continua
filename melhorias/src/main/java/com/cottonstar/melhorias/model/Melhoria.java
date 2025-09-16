@@ -18,7 +18,7 @@ import java.util.List;
 public class Melhoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(columnDefinition = "TEXT")
     private String titulo;

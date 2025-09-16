@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class Aprendizado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricaoAprendizado;                        // DESCRIÇÃO DO QUE FOI APRENDIDO

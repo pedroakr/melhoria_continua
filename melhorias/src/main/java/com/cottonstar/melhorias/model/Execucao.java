@@ -18,7 +18,7 @@ import java.util.List;
 public class Execucao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParticipacaoExecucao> participantesExecucao = new ArrayList<>();

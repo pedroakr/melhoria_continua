@@ -6,33 +6,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor // A anotação do Lombok gera o construtor necessário
+//@RequiredArgsConstructor
 public class MelhoriaService {
 
     private final MelhoriaRepository melhoriaRepository;
 
-    // Construtor manual foi removido daqui para evitar duplicidade.
-
-    public Melhoria criarMelhoria(Melhoria melhoria) {
-        return melhoriaRepository.save(melhoria);
+    public MelhoriaService(MelhoriaRepository melhoriaRepository) {
+        this.melhoriaRepository = melhoriaRepository;
     }
 
-    public Optional<Melhoria> buscarPorId(Integer id) {
-        return melhoriaRepository.findById(id);
-    }
-
-    public List<Melhoria> listarTodas() {
+    // LISTAR
+    public List<Melhoria> getAll() {
         return melhoriaRepository.findAll();
     }
 
-    public Melhoria atualizarMelhoria(Melhoria melhoria) {
+    // CRIAR
+    public Melhoria save(Melhoria melhoria) {
         return melhoriaRepository.save(melhoria);
     }
-
-    public void deletarMelhoria(Integer id) {
+    // DELETAR
+    public void delete(Long id) {
         melhoriaRepository.deleteById(id);
     }
 }

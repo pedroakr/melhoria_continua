@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Arquivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     // Caminho ou URL no sistema externo
     @Column(name = "caminho", nullable = false, length = 500)
