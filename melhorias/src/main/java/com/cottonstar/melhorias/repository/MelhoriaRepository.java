@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {
+public interface MelhoriaRepository extends JpaRepository<Melhoria, Long> {
 
-    List<Melhoria> findByResponsavelId(Integer responsavelId);
+    List<Melhoria> findByResponsavelId(Long responsavelId);
 
     List<Melhoria> findByDepartamentoMelhoria(Departamento departamento);
 

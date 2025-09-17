@@ -1,12 +1,12 @@
 package com.cottonstar.melhorias.security;
 
-import com.cottonstar.melhorias.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -29,13 +29,14 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(Authentication authentication) {
-        Usuario userPrincipal = (Usuario) authentication.getPrincipal();
+        // CORREÇÃO: Evita ClassCastException usando a interface UserDetails
+        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getEmail())
+                .setSubject(userPrincipal.getUsername()) // Usa getUsername() que retorna o e-mail
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -57,7 +58,7 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (Exception ex) {
-            // Logar a exceção será útil em um ambiente de produção
+            // Em produção, seria ideal logar a exceção
         }
         return false;
     }
