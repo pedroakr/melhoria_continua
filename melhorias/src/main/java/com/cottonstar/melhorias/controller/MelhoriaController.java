@@ -17,6 +17,10 @@ public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
 
+    public MelhoriaController(MelhoriaService melhoriaService) {
+        this.melhoriaService = melhoriaService;
+    }
+
     @PostMapping
     public ResponseEntity<Melhoria> criarMelhoria(@RequestBody Melhoria melhoria) {
         Melhoria novaMelhoria = melhoriaService.criarMelhoria(melhoria);
@@ -43,7 +47,7 @@ public class MelhoriaController {
     public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
         return melhoriaService.buscarPorId(id)
                 .map(melhoriaExistente -> {
-                    melhoriaAtualizada.setId(id); // Garante que o ID correto seja atualizado
+                    melhoriaAtualizada.setId(id);
                     Melhoria melhoriaSalva = melhoriaService.atualizarMelhoria(melhoriaAtualizada);
                     return new ResponseEntity<>(melhoriaSalva, HttpStatus.OK);
                 })

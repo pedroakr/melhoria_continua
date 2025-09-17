@@ -17,7 +17,6 @@ public class MelhoriaService {
     private final MelhoriaRepository melhoriaRepository;
 
     public Melhoria criarMelhoria(Melhoria melhoria) {
-        // Lógica de negócio para status iniciais com base no tamanho da melhoria
         if (melhoria.getTamanhoMelhoria() == TamanhoMelhoria.PEQUENA || melhoria.getTamanhoMelhoria() == TamanhoMelhoria.MEDIA) {
             melhoria.getPlano().setStatusPlano(StatusEtapa.INICIADO);
             melhoria.getExecucao().setStatusExecucao(StatusEtapa.AGUARDANDO);
@@ -25,14 +24,13 @@ public class MelhoriaService {
             melhoria.getAprendizado().setStatusAprendizado(StatusEtapa.AGUARDANDO);
             melhoria.setStatus(StatusEtapa.INICIADO);
         } else if (melhoria.getTamanhoMelhoria() == TamanhoMelhoria.GRANDE) {
-            // Para melhorias grandes, o status inicial poderia ser "AGUARDANDO_APROVACAO"
-            // Esta lógica pode ser expandida conforme a regra de negócio.
-            melhoria.setStatus(StatusEtapa.AGUARDANDO); // Exemplo
+            melhoria.setStatus(StatusEtapa.AGUARDANDO);
         }
         return melhoriaRepository.save(melhoria);
     }
 
-    public Optional<Melhoria> buscarPorId(Integer id) {
+    // CORREÇÃO: Alterado de Integer para Long
+    public Optional<Melhoria> buscarPorId(Long id) {
         return melhoriaRepository.findById(id);
     }
 
@@ -44,7 +42,8 @@ public class MelhoriaService {
         return melhoriaRepository.save(melhoria);
     }
 
-    public void deletarMelhoria(Integer id) {
+    // CORREÇÃO: Alterado de Integer para Long
+    public void deletarMelhoria(Long id) {
         melhoriaRepository.deleteById(id);
     }
 }

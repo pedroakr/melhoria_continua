@@ -14,7 +14,9 @@ spring:
       ddl-auto: update
     show-sql: true
   flyway:
-    enabled: false # Desabilitado para evitar conflito com ddl-auto em ambiente de dev
+    enabled: false # Desabilitado para evitar conflito com ddl-auto
+
+# ADICIONADO: Propriedades para JWT
 app:
   jwtSecret: SpringBootSecretKeyForJWTsMustBeLongerThan256Bits
   jwtExpirationInMs: 86400000

@@ -29,14 +29,14 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(Authentication authentication) {
-        // CORREÇÃO: Evita ClassCastException usando a interface UserDetails
+        // CORREÇÃO: Evita ClassCastException
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername()) // Usa getUsername() que retorna o e-mail
+                .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -58,7 +58,7 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (Exception ex) {
-            // Em produção, seria ideal logar a exceção
+            // Logar a exceção
         }
         return false;
     }
