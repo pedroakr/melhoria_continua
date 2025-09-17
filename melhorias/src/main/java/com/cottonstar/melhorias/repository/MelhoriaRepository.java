@@ -9,11 +9,6 @@ import java.util.List;
 
 public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {          // PASSAR OBJETO E O TIPO
 
-    // USUARIO
-    void deleteById(Integer id);                                                        // DELETA MELHORIA ATRAVÉS DO ID
-
-    Melhoria save(Melhoria melhoria);                                                   // SALVA-ALTERA MELHORIA
-
     // Spring entende: "SELECT * FROM tb_melhorias WHERE responsavel_fk = ?             // FILTRADO ATRVÉS DO USUARIO LOGADO
     List<Melhoria> findByResponsavelId(Integer responsavelId);                          // CONSULTA MELHORIAS ATRAVÉS DO ID DO RESPONSÁVEL
 
@@ -25,11 +20,4 @@ public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {  
 
     // Spring entende: "SELECT * FROM tb_melhorias WHERE lower(titulo) LIKE lower(?)"   // FILTRADO PELO USUARIO
     List<Melhoria> findByTituloContainingIgnoreCase(String titulo);                     // CONSULTA MELHORIAS ATRAVÉS DO TÍTULO, IGNORANDO MAIÚSCULAS/MINÚSCULAS
-
-    // GERAL - TODOS ANTERIORES + LISTAR TUDO
-    List<Melhoria> findAll();                                                           // BUSCA TODAS AS MELHORIAS
-
-    Melhoria findById(int id);                                                          // BUSCA MELHORIA ATRAVÉS DO ID
-
-
 }

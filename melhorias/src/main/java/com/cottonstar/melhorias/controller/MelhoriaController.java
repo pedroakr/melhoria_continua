@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/melhorias")
-@RequiredArgsConstructor // A anotação do Lombok gera o construtor necessário
+@RequiredArgsConstructor
 public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
