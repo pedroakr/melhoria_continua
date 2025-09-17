@@ -18,7 +18,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarPorId(String id) {
+    public Optional<Usuario> buscarPorId(Integer id) {
         return usuarioRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void deletarUsuario(String id) {
+    public void deletarUsuario(Integer id) {
         usuarioRepository.deleteById(id);
     }
 }

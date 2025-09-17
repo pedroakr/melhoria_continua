@@ -2,22 +2,18 @@ package com.cottonstar.melhorias.repository;
 
 import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.model.enums.Departamento;
-import com.cottonstar.melhorias.model.enums.StatusMelhoria;
+import com.cottonstar.melhorias.model.enums.StatusEtapa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {          // PASSAR OBJETO E O TIPO
+public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {
 
-    // Spring entende: "SELECT * FROM tb_melhorias WHERE responsavel_fk = ?             // FILTRADO ATRVÉS DO USUARIO LOGADO
-    List<Melhoria> findByResponsavelId(Integer responsavelId);                          // CONSULTA MELHORIAS ATRAVÉS DO ID DO RESPONSÁVEL
+    List<Melhoria> findByResponsavelId(Integer responsavelId);
 
-    // Spring entende: "SELECT * FROM tb_melhorias WHERE departamento = ?"              // FILTRADO PELO USUARIO
-    List<Melhoria> findByDepartamentoMelhoria(Departamento departamento);               // CONSULTA MELHORIAS ATRAVÉS DO DEPARTAMENTO
+    List<Melhoria> findByDepartamentoMelhoria(Departamento departamento);
 
-    // Spring entende: "SELECT * FROM tb_melhorias WHERE status = ?"                    // FILTRADO PELO USUARIO
-    List<Melhoria> findByStatus(StatusMelhoria status);                                 // CONSULTA MELHORIAS ATRAVÉS DO STATUS
+    List<Melhoria> findByStatus(StatusEtapa status);
 
-    // Spring entende: "SELECT * FROM tb_melhorias WHERE lower(titulo) LIKE lower(?)"   // FILTRADO PELO USUARIO
-    List<Melhoria> findByTituloContainingIgnoreCase(String titulo);                     // CONSULTA MELHORIAS ATRAVÉS DO TÍTULO, IGNORANDO MAIÚSCULAS/MINÚSCULAS
+    List<Melhoria> findByTituloContainingIgnoreCase(String titulo);
 }
