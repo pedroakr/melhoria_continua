@@ -23,6 +23,27 @@ public class Melhoria {
     @Column(columnDefinition = "TEXT")
     private String titulo;
 
+    // COMENTARIOS
+    @OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentariosMelhoria;
+
+    // ENUMS
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tamanho", length = 20, nullable = false)
+    private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "retorno", length = 20, nullable = false)
+    private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "departamento", length = 20, nullable = false)
+    private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
+    private StatusEtapa status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
+
     // CLASSES
     @ManyToOne
     @JoinColumn(name = "responsavel_fk", nullable = false)
@@ -51,27 +72,6 @@ public class Melhoria {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "aprendizado_fk", nullable = true, referencedColumnName = "id")
     private Aprendizado aprendizado;                // APRENDIZADO
-
-    // COMENTARIOS
-    @OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentariosMelhoria;
-
-    // ENUMS
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tamanho", length = 20, nullable = false)
-    private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "retorno", length = 20, nullable = false)
-    private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "departamento", length = 20, nullable = false)
-    private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20, nullable = false)
-    private StatusEtapa status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
 
     // DATAS --(REVISAR QUANDO DESENVOVER O .JS)
     @Column(name = "data_criacao", nullable = false, updatable = false)

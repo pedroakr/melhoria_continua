@@ -4,17 +4,13 @@ import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface MelhoriaRepository extends JpaRepository<Melhoria, Long> {          // PASSAR OBJETO E O TIPO
+public interface MelhoriaRepository extends JpaRepository<Melhoria, Integer> {          // PASSAR OBJETO E O TIPO
 
     // Spring entende: "SELECT * FROM tb_melhorias WHERE responsavel_fk = ?             // FILTRADO ATRVÉS DO USUARIO LOGADO
     List<Melhoria> findByResponsavelId(Integer responsavelId);                          // CONSULTA MELHORIAS ATRAVÉS DO ID DO RESPONSÁVEL
-
-    // FILTROS ESPECÍFICOS
 
     // Spring entende: "SELECT * FROM tb_melhorias WHERE departamento = ?"              // FILTRADO PELO USUARIO
     List<Melhoria> findByDepartamentoMelhoria(Departamento departamento);               // CONSULTA MELHORIAS ATRAVÉS DO DEPARTAMENTO
