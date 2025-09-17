@@ -16,6 +16,10 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
         // Em um cenário real, a senha seria criptografada aqui antes de salvar

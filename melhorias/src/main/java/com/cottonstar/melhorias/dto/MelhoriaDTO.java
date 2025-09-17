@@ -7,7 +7,7 @@ import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import java.time.LocalDateTime;
 
 public class MelhoriaDTO {
-    private String id;
+    private Long id;
     private String titulo;
     private TamanhoMelhoria tipo;
     private Departamento departamentoMelhoria;

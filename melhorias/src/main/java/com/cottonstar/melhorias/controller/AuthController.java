@@ -22,6 +22,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
 
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody AuthRequestDTO authRequest) {
         Authentication authentication = authenticationManager.authenticate(

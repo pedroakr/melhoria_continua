@@ -14,6 +14,10 @@ public class ComentarioController {
 
     private final ComentarioService comentarioService;
 
+    public ComentarioController(ComentarioService comentarioService) {
+        this.comentarioService = comentarioService;
+    }
+
     @PostMapping
     public ResponseEntity<Comentario> criarComentario(@RequestBody Comentario comentario) {
         Comentario novoComentario = comentarioService.criarComentario(comentario);

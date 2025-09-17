@@ -4,6 +4,7 @@ import com.cottonstar.melhorias.model.enums.PerfilAcesso;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.nio.file.FileStore;
 import java.util.List;
 
 @Entity
@@ -49,5 +50,4 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     private List<ParticipacaoExecucao> participacoesExecucao;   // PARTICIPAÇÕES DO USUÁRIO NAS EXECUÇÕES
-
 }

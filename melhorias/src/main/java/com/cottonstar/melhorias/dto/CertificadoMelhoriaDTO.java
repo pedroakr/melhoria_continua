@@ -3,7 +3,7 @@ package com.cottonstar.melhorias.dto;
 import java.time.LocalDateTime;
 
 public record CertificadoMelhoriaDTO(
-        String id,
+        Long id,
         String melhoriaId,
         String tituloMelhoria,
         String responsavel,

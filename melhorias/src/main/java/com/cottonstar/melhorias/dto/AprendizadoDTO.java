@@ -1,7 +1,7 @@
 package com.cottonstar.melhorias.dto;
 
 public class AprendizadoDTO {
-    private String id;
+    private Long id;
     private String pontosFortes;
     private String pontosDeMelhoria;
 }

@@ -12,4 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AuthResponseDTO {
     private String token;
+
+    public AuthResponseDTO(String jwt) {
+    }
 }
