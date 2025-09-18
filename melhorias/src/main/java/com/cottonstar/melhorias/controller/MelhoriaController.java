@@ -23,8 +23,8 @@ public class MelhoriaController {
         return new ResponseEntity<>(novaMelhoria, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Melhoria>> listarMelhorias() {
+    @GetMapping                                                                                 // INFORMA QUE SERA REALIZADO PESQUISA NO BANCO
+    public ResponseEntity<List<Melhoria>> listarMelhorias() {                                   // INFORMA QUE SERA REALIZADO UMA LISTAGEM DE MELHORIAS
         List<Melhoria> melhorias = melhoriaService.listarTodas();
         return new ResponseEntity<>(melhorias, HttpStatus.OK);
     }
