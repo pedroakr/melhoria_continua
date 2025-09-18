@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comentarios")
-@RequiredArgsConstructor
 public class ComentarioController {
 
     private final ComentarioService comentarioService;
@@ -25,7 +24,7 @@ public class ComentarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarComentario(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletarComentario(@PathVariable Long id) {
         comentarioService.deletarComentario(id);
         return ResponseEntity.noContent().build();
     }

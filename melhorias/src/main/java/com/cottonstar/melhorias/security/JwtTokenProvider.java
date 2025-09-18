@@ -23,7 +23,6 @@ public class JwtTokenProvider {
 
     private Key key;
 
-    @javax.annotation.PostConstruct
     public void init() {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }

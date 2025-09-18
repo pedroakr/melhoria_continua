@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/melhorias")
-@RequiredArgsConstructor
 public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;

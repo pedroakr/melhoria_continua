@@ -9,12 +9,10 @@ spring:
       enabled: true
       path: /h2-console
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+    # Opcional: Esta linha é útil para ver os comandos SQL no console
     show-sql: true
-  flyway:
-    enabled: false # Desabilitado para evitar conflito com ddl-auto
 
 # ADICIONADO: Propriedades para JWT
 app:

@@ -18,7 +18,7 @@ public class ComentarioService {
         return comentarioRepository.save(comentario);
     }
 
-    public Optional<Comentario> buscarPorId(Integer id) {
+    public Optional<Comentario> buscarPorId(Long id) {
         return comentarioRepository.findById(id);
     }
 
@@ -26,7 +26,7 @@ public class ComentarioService {
         return comentarioRepository.findAll();
     }
 
-    public void deletarComentario(Integer id) {
+    public void deletarComentario(Long id) {
         comentarioRepository.deleteById(id);
     }
 }
