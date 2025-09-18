@@ -32,7 +32,6 @@ public class MelhoriaController {
         return new ResponseEntity<>(melhorias, HttpStatus.OK);
     }
 
-    // CORREÇÃO: Alterado de Integer para Long
     @GetMapping("/{id}")
     public ResponseEntity<Melhoria> buscarMelhoriaPorId(@PathVariable Long id) {
         Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
@@ -41,7 +40,6 @@ public class MelhoriaController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // CORREÇÃO: Alterado de Integer para Long
     @PutMapping("/{id}")
     public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
         return melhoriaService.buscarPorId(id)
@@ -53,7 +51,6 @@ public class MelhoriaController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // CORREÇÃO: Alterado de Integer para Long
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMelhoria(@PathVariable Long id) {
         if (melhoriaService.buscarPorId(id).isPresent()) {

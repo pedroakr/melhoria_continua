@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-// CORREÇÃO: Alterado de Integer para Long
 public interface MelhoriaRepository extends JpaRepository<Melhoria, Long> {
 
     List<Melhoria> findByResponsavelId(Long responsavelId);

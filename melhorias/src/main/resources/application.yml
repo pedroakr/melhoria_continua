@@ -11,7 +11,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    # Opcional: Esta linha é útil para ver os comandos SQL no console
+    # ADICIONE A LINHA ABAIXO
+    defer-datasource-initialization: true
     show-sql: true
 
 # ADICIONADO: Propriedades para JWT

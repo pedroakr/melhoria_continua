@@ -29,7 +29,6 @@ public class MelhoriaService {
         return melhoriaRepository.save(melhoria);
     }
 
-    // CORREÇÃO: Alterado de Integer para Long
     public Optional<Melhoria> buscarPorId(Long id) {
         return melhoriaRepository.findById(id);
     }
@@ -42,7 +41,6 @@ public class MelhoriaService {
         return melhoriaRepository.save(melhoria);
     }
 
-    // CORREÇÃO: Alterado de Integer para Long
     public void deletarMelhoria(Long id) {
         melhoriaRepository.deleteById(id);
     }
