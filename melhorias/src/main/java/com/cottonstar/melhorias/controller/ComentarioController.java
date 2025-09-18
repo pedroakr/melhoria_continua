@@ -8,14 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/comentarios")
 public class ComentarioController {
 
     private final ComentarioService comentarioService;
-
-    public ComentarioController(ComentarioService comentarioService) {
-        this.comentarioService = comentarioService;
-    }
 
     @PostMapping
     public ResponseEntity<Comentario> criarComentario(@RequestBody Comentario comentario) {

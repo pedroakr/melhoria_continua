@@ -11,14 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/melhorias")
 public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
-
-    public MelhoriaController(MelhoriaService melhoriaService) {
-        this.melhoriaService = melhoriaService;
-    }
 
     @PostMapping
     public ResponseEntity<Melhoria> criarMelhoria(@RequestBody Melhoria melhoria) {

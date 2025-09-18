@@ -15,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
-
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
-        this.authenticationManager = authenticationManager;
-        this.tokenProvider = tokenProvider;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody AuthRequestDTO authRequest) {

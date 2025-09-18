@@ -113,9 +113,6 @@ public class Melhoria {
                 ", dataConclusao=" + dataConclusao +
                 '}';
     }
-
-    public void setId(Long id) {
-    }
 }
 
 

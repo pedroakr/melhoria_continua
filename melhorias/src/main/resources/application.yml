@@ -17,5 +17,5 @@ spring:
 
 # ADICIONADO: Propriedades para JWT
 app:
-  jwtSecret: SpringBootSecretKeyForJWTsMustBeLongerThan256Bits
+  jwtSecret: your-new-very-long-and-secure-base64-encoded-secret-that-is-at-least-64-bytes-long
   jwtExpirationInMs: 86400000
