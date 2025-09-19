@@ -5,9 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
+//import java.util.List;
 
-// Tranforma classe em entidade no DB
 @Entity
 @Table(name = "tb_melhorias")
 @Getter
@@ -23,57 +22,67 @@ public class Melhoria {
     @Column(columnDefinition = "TEXT")
     private String titulo;
 
-    // COMENTARIOS
-    @OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentariosMelhoria;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
 
-    // ENUMS
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tamanho", length = 20, nullable = false)
-    private TamanhoMelhoria tamanhoMelhoria;        // PEQUENA, MEDIA, GRANDE
+    // --- RELACIONAMENTOS ---
+    //@ToString.Exclude
+    //@OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //private List<Comentario> comentariosMelhoria;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "retorno", length = 20, nullable = false)
-    private TipoRetorno tipoRetorno;                // FINANCEIRO, QUALIDADE, PRODUTIVIDADE
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "departamento", length = 20, nullable = false)
-    private Departamento departamentoMelhoria;      // DEPARTAMENTO ONDE SERA IMPLANTADA
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20, nullable = false)
-    private StatusEtapa status;                  // CRIADO, EM_ANDAMENTO, APROVADO, CONCLUIDO, REJEITADO
-
-    // CLASSES
-    @ManyToOne
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "responsavel_fk", nullable = false)
-    private Usuario responsavel;               // QUEM CADASTROU -> Pega automatico pelo login
+    private Usuario responsavel;
 
-    @ManyToOne
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gestor_fk")
-    private Usuario gestor;                    // QUEM APROVA/ACOMPANHA
+    private Usuario gestor;
 
-    @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Certificado certificado;
 
     // PDCL
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "plano_fk", nullable = true ,referencedColumnName = "id")
-    private Plano plano;                            // IDENTIFICACAO E PLANEJAMENTO
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "plano_fk", referencedColumnName = "id")
+    private Plano plano;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "execucao_fk", nullable = true, referencedColumnName = "id")
-    private Execucao execucao;                      // ACOMPANHAMENTO
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "execucao_fk", referencedColumnName = "id")
+    private Execucao execucao;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "verificacao_fk", nullable = true, referencedColumnName = "id")
-    private Verificacao verificacao;                // RESULTADOS
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "verificacao_fk", referencedColumnName = "id")
+    private Verificacao verificacao;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "aprendizado_fk", nullable = true, referencedColumnName = "id")
-    private Aprendizado aprendizado;                // APRENDIZADO
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "aprendizado_fk", referencedColumnName = "id")
+    private Aprendizado aprendizado;
 
-    // DATAS --(REVISAR QUANDO DESENVOVER O .JS)
+    // --- ENUMS E DADOS ---
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tamanho", length = 20, nullable = false)
+    private TamanhoMelhoria tamanhoMelhoria;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "retorno", length = 20, nullable = false)
+    private TipoRetorno tipoRetorno;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "departamento", length = 20, nullable = false)
+    private Departamento departamentoMelhoria;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
+    private StatusEtapa status;
+
+    // --- AUDITORIA ---
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDate dataCriacao;
 
@@ -82,7 +91,7 @@ public class Melhoria {
         this.dataCriacao = LocalDate.now();     // GERADO DE FORMA AUTOMATICA
     }
 
-    @Column(name = "data_fim", nullable = true, updatable = false)
+    @Column(name = "data_fim")
     private LocalDate dataConclusao;            // GERADO DE FORMA AUTOMATICA
 
     @PreUpdate
@@ -90,28 +99,6 @@ public class Melhoria {
         if (this.status == StatusEtapa.FINALIZADO && this.dataConclusao == null) {
             this.dataConclusao = LocalDate.now();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Melhoria{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", responsavel=" + responsavel +
-                ", gestor=" + gestor +
-                ", certificado=" + certificado +
-                ", plano=" + plano +
-                ", execucao=" + execucao +
-                ", verificacao=" + verificacao +
-                ", aprendizado=" + aprendizado +
-                ", comentariosMelhoria=" + comentariosMelhoria +
-                ", tamanhoMelhoria=" + tamanhoMelhoria +
-                ", tipoRetorno=" + tipoRetorno +
-                ", departamentoMelhoria=" + departamentoMelhoria +
-                ", status=" + status +
-                ", dataCriacao=" + dataCriacao +
-                ", dataConclusao=" + dataConclusao +
-                '}';
     }
 }
 
