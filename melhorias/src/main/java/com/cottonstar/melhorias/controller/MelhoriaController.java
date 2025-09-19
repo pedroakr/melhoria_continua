@@ -1,5 +1,6 @@
 package com.cottonstar.melhorias.controller;
 
+import com.cottonstar.melhorias.dto.CriarMelhoriaDTO;
 import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.service.MelhoriaService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ public class MelhoriaController {
     private final MelhoriaService melhoriaService;
 
     @PostMapping
-    public ResponseEntity<Melhoria> criarMelhoria(@RequestBody Melhoria melhoria) {
-        Melhoria novaMelhoria = melhoriaService.criarMelhoria(melhoria);
+    public ResponseEntity<Melhoria> criarMelhoria(@RequestBody CriarMelhoriaDTO criarMelhoriaDTO) {
+        Melhoria novaMelhoria = melhoriaService.criarMelhoria(criarMelhoriaDTO);
         return new ResponseEntity<>(novaMelhoria, HttpStatus.CREATED);
     }
 
