@@ -41,7 +41,7 @@ public class Plano {
     private List<ParticipacaoPlano> participantesPlano = new ArrayList<>();          // USUARIOS QUE PARTICIPARÃO
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "status", length = 20)
     private StatusEtapa statusPlano;                    // STATUS ATUAL { AO CRIAR MELHORIA (AÇÃO) STARTAR COMO "INICIADO", APÓS O USUARIO PODE ALTERAR PARA FINALIZADO QUANDO ACHAR NECESSARIO
 
     @OneToOne(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -49,7 +49,7 @@ public class Plano {
     private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)
-    @Column(name = "data_inicio", nullable = false, updatable = false)
+    @Column(name = "data_inicio", updatable = false)
     private LocalDate inicioPlano;                      // DATA INICIDA (GERADO AO STARTAR) { IF statusPlano == "INICIADO" }
 
     @PrePersist

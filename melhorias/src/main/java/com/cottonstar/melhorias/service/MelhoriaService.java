@@ -5,7 +5,10 @@ import com.cottonstar.melhorias.model.*;
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import com.cottonstar.melhorias.repository.MelhoriaRepository;
+import com.cottonstar.melhorias.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,40 +19,55 @@ import java.util.Optional;
 public class MelhoriaService {
 
     private final MelhoriaRepository melhoriaRepository;
+    private final UsuarioRepository usuarioRepository; // Adicione o repositório de usuário
 
-    public Melhoria criarMelhoria(CriarMelhoriaDTO criarMelhoriaDTO) {
-        // 1. Criar uma nova instância da entidade Melhoria
+    @Transactional
+    public Melhoria criarMelhoria(CriarMelhoriaDTO criarMelhoriaDTO, String emailUsuarioLogado) {
+        // 1. Buscar o usuário responsável que está logado
+        Usuario responsavel = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o email: " + emailUsuarioLogado));
+
+        // 2. Criar as instâncias das entidades
         Melhoria novaMelhoria = new Melhoria();
         Plano plano = new Plano();
         Execucao execucao = new Execucao();
         Verificacao verificacao = new Verificacao();
         Aprendizado aprendizado = new Aprendizado();
 
-        // 2. ASSOCIE OS FILHOS À ENTIDADE "MÃE"
-        novaMelhoria.setPlano(plano);
-        novaMelhoria.setExecucao(execucao);
-        novaMelhoria.setVerificacao(verificacao);
-        novaMelhoria.setAprendizado(aprendizado);
-
-        // 2. Mapear os dados do DTO para a entidade
+        // 3. Mapear os dados do DTO
         novaMelhoria.setTitulo(criarMelhoriaDTO.getTitulo());
         novaMelhoria.setTamanhoMelhoria(criarMelhoriaDTO.getTipo());
         novaMelhoria.setDepartamentoMelhoria(criarMelhoriaDTO.getDepartamentoMelhoria());
         novaMelhoria.setTipoRetorno(criarMelhoriaDTO.getTipoRetorno());
         novaMelhoria.setDescricao(criarMelhoriaDTO.getDescricao());
 
+        // 4. Atribuir o usuário responsável
+        novaMelhoria.setResponsavel(responsavel);
+
+        // 5. Associar as etapas à melhoria
+        novaMelhoria.setPlano(plano);
+        novaMelhoria.setExecucao(execucao);
+        novaMelhoria.setVerificacao(verificacao);
+        novaMelhoria.setAprendizado(aprendizado);
+
+        // Lógica de status
         if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.PEQUENA || novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.MEDIA) {
-            novaMelhoria.getPlano().setStatusPlano(StatusEtapa.AGUARDANDO);
-            novaMelhoria.getExecucao().setStatusExecucao(StatusEtapa.AGUARDANDO);
-            novaMelhoria.getVerificacao().setStatusVerificacao(StatusEtapa.AGUARDANDO);
-            novaMelhoria.getAprendizado().setStatusAprendizado(StatusEtapa.AGUARDANDO);
+            plano.setStatusPlano(StatusEtapa.INICIADO);
+            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
+            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
+            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
             novaMelhoria.setStatus(StatusEtapa.INICIADO);
+
+            // --- CORREÇÃO CRÍTICA AQUI ---
+            // Atribui valores padrão aos campos não nulos de Verificacao
+            verificacao.setIndicadoresAnalisados("Ainda não aplicável.");
+            verificacao.setResultadosObtidos("Ainda não aplicável.");
+
         } else if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.GRANDE) {
             novaMelhoria.setStatus(StatusEtapa.AGUARDANDO);
-
-            // ADICIONAR REGRA PARA APROVAÇÃO
-            // BUSCAR NA TABELA USUARIO O USUARIO LOGADO
+            // ... (regras futuras)
         }
+
         return melhoriaRepository.save(novaMelhoria);
     }
 

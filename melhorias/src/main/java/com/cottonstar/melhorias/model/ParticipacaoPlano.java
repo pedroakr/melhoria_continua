@@ -15,10 +15,10 @@ public class ParticipacaoPlano {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "plano_id", nullable = false)
+    @JoinColumn(name = "plano_id")
     private Plano plano;
 }

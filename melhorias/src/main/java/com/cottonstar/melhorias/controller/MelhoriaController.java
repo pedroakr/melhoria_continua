@@ -1,15 +1,17 @@
 package com.cottonstar.melhorias.controller;
 
 import com.cottonstar.melhorias.dto.CriarMelhoriaDTO;
+import com.cottonstar.melhorias.dto.MelhoriaDTO; // Importe o DTO
 import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.service.MelhoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,44 +20,54 @@ public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
 
-    @PostMapping
-    public ResponseEntity<Melhoria> criarMelhoria(@RequestBody CriarMelhoriaDTO criarMelhoriaDTO) {
-        Melhoria novaMelhoria = melhoriaService.criarMelhoria(criarMelhoriaDTO);
-        return new ResponseEntity<>(novaMelhoria, HttpStatus.CREATED);
+    @PostMapping("/criar")
+    public ResponseEntity<MelhoriaDTO> criarMelhoria(@RequestBody CriarMelhoriaDTO criarMelhoriaDTO, Authentication authentication) {
+        String emailUsuarioLogado = authentication.getName();
+        Melhoria novaMelhoria = melhoriaService.criarMelhoria(criarMelhoriaDTO, emailUsuarioLogado);
+
+        // Converte a entidade criada para DTO antes de retornar
+        return new ResponseEntity<>(new MelhoriaDTO(novaMelhoria), HttpStatus.CREATED);
     }
 
-    @GetMapping                                                                                 // INFORMA QUE SERA REALIZADO PESQUISA NO BANCO
-    public ResponseEntity<List<Melhoria>> listarMelhorias() {                                   // INFORMA QUE SERA REALIZADO UMA LISTAGEM DE MELHORIAS
+    @GetMapping
+    public ResponseEntity<List<MelhoriaDTO>> listarMelhorias() {
         List<Melhoria> melhorias = melhoriaService.listarTodas();
-        return new ResponseEntity<>(melhorias, HttpStatus.OK);
+
+        // Converte a lista de entidades para uma lista de DTOs
+        List<MelhoriaDTO> melhoriasDTO = melhorias.stream()
+                .map(MelhoriaDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(melhoriasDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Melhoria> buscarMelhoriaPorId(@PathVariable Long id) {
-        Optional<Melhoria> melhoria = melhoriaService.buscarPorId(id);
-        return melhoria
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<MelhoriaDTO> buscarMelhoriaPorId(@PathVariable Long id) {
+        return melhoriaService.buscarPorId(id)
+                .map(melhoria -> ResponseEntity.ok(new MelhoriaDTO(melhoria))) // Converte para DTO
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Melhoria> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
+    public ResponseEntity<MelhoriaDTO> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
+        // ATENÇÃO: Receber a entidade completa no PUT também é uma má prática.
+        // O ideal seria criar um MelhoriaUpdateDTO.
         return melhoriaService.buscarPorId(id)
                 .map(melhoriaExistente -> {
                     melhoriaAtualizada.setId(id);
                     Melhoria melhoriaSalva = melhoriaService.atualizarMelhoria(melhoriaAtualizada);
-                    return new ResponseEntity<>(melhoriaSalva, HttpStatus.OK);
+                    return ResponseEntity.ok(new MelhoriaDTO(melhoriaSalva)); // Converte para DTO
                 })
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMelhoria(@PathVariable Long id) {
         if (melhoriaService.buscarPorId(id).isPresent()) {
             melhoriaService.deletarMelhoria(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 }

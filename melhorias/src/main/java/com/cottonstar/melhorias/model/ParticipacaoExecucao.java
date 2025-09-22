@@ -15,10 +15,10 @@ public class ParticipacaoExecucao {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "execucao_id", nullable = false)
+    @JoinColumn(name = "execucao_id")
     private Execucao execucao;
 }

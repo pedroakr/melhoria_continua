@@ -11,11 +11,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    # ADICIONE A LINHA ABAIXO
     defer-datasource-initialization: true
     show-sql: true
 
 # ADICIONADO: Propriedades para JWT
 app:
-  jwtSecret: your-new-very-long-and-secure-base64-encoded-secret-that-is-at-least-64-bytes-long
+  jwtSecret: N2RjZDU4NjctZWVmOS00Zjk3LWEzMTItYzA4YjI5ZWEzMGIyLTY1NDU4YjJiLWVmY2YtNGU4Mi1iYmMxLTQwMjg3NjBlYjczMg==
   jwtExpirationInMs: 86400000

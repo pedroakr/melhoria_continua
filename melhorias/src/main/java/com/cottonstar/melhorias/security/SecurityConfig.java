@@ -27,13 +27,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        // ADICIONE ESTA LINHA: Permite que qualquer um crie um novo usuário
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "/usuarios").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        // --- AJUSTE AQUI ---
+                        // Exige que o usuário esteja autenticado para acessar qualquer endpoint de /melhorias
+                        .requestMatchers("/melhorias/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())) // Necessário para o console H2
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

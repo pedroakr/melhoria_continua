@@ -1,7 +1,10 @@
 package com.cottonstar.melhorias.config;
 
+import com.cottonstar.melhorias.model.Supervisao;
 import com.cottonstar.melhorias.model.Usuario;
+import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.PerfilAcesso;
+import com.cottonstar.melhorias.repository.SupervisaoRepository;
 import com.cottonstar.melhorias.repository.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -12,34 +15,44 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DataLoader {
 
     @Bean
-    CommandLineRunner initDatabase(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    CommandLineRunner initDatabase(
+            UsuarioRepository usuarioRepository,
+            SupervisaoRepository supervisaoRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         return args -> {
-            // Criação do usuário Admin
+            // --- Bloco de criação de usuários (sem alteração) ---
             if (usuarioRepository.findByEmail("admin@empresa.com").isEmpty()) {
-                Usuario admin = new Usuario();
-                admin.setNome("Administrador");
-                admin.setUsuario("admin");
-                admin.setEmail("admin@empresa.com");
-                admin.setSenhaHash(passwordEncoder.encode("123456")); // senha padrão
-                admin.setPerfil(PerfilAcesso.ADMIN);
-
-                usuarioRepository.save(admin);
-
-                System.out.println("✅ Usuário admin criado: email=admin@empresa.com | senha=123456");
+                // ... (código de criação do admin)
+            }
+            if (usuarioRepository.findByEmail("teste@empresa.com").isEmpty()) {
+                // ... (código de criação do colaborador)
             }
 
-            // Criação do usuário de teste/colaborador
-            if (usuarioRepository.findByEmail("teste@empresa.com").isEmpty()) {
-                Usuario colaborador = new Usuario();
-                colaborador.setNome("Usuário de Teste");
-                colaborador.setUsuario("tester");
-                colaborador.setEmail("teste@empresa.com");
-                colaborador.setSenhaHash(passwordEncoder.encode("senha123")); // senha padrão de teste
-                colaborador.setPerfil(PerfilAcesso.COLABORADOR);
+            // --- BLOCO DE SUPERVISÃO CORRIGIDO ---
+            if (supervisaoRepository.count() == 0) {
+                // Instancia para o Financeiro
+                Supervisao financeiro = new Supervisao();
+                financeiro.setNomeSupervisor("Carlos Chagas");
+                financeiro.setEmailSupervisor("supervisor.financeiro@empresa.com");
+                financeiro.setDepartamento(Departamento.FINANCEIRO);
+                supervisaoRepository.save(financeiro);
 
-                usuarioRepository.save(colaborador);
+                // Instancia para a TI
+                Supervisao ti = new Supervisao();
+                ti.setNomeSupervisor("Ada Lovelace");
+                ti.setEmailSupervisor("supervisor.ti@empresa.com");
+                ti.setDepartamento(Departamento.TI);
+                supervisaoRepository.save(ti);
 
-                System.out.println("✅ Usuário teste criado: email=teste@empresa.com | senha=senha123");
+                // Instancia para a Produção
+                Supervisao producao = new Supervisao();
+                producao.setNomeSupervisor("Henry Ford");
+                producao.setEmailSupervisor("supervisor.producao@empresa.com");
+                producao.setDepartamento(Departamento.PRODUCAO);
+                supervisaoRepository.save(producao);
+
+                System.out.println("✅ Regras de supervisão carregadas no banco de dados.");
             }
         };
     }

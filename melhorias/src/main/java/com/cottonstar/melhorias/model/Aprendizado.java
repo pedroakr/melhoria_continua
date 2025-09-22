@@ -22,7 +22,7 @@ public class Aprendizado {
     private String descricaoAprendizado;                        // DESCRIÇÃO DO QUE FOI APRENDIDO
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20, nullable = false)
+    @Column(name = "status", length = 20)
     private StatusEtapa statusAprendizado;                      // STATUS ATUAL { IF statusVerificacao == "AGUARDANDO" { statusAprendizado = "AGUARDANDO"  } IF statusVerificacao == "FINALIZADO" { statusAprendizado = "INICIADO" } IF PRESS_BOTAO_FINALIZAR = TRUE { statusAprendizado = "FINALIZADO" } }
 
     @OneToOne(mappedBy = "aprendizado", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -30,7 +30,7 @@ public class Aprendizado {
     private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DO .JS)
-    @Column(name = "data_inicio", nullable = false, updatable = false)
+    @Column(name = "data_inicio", updatable = false)
     private LocalDate inicioAprendizado;                        // DATA INICIAL            { IF statusAprendizado == "INICIADO" { inicioAprendizado = DATA ATUAL } }
 
     @PrePersist

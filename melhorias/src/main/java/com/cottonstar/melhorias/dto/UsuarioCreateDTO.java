@@ -1,6 +1,6 @@
 package com.cottonstar.melhorias.dto;
 
-import com.cottonstar.melhorias.model.enums.PerfilAcesso;
+import com.cottonstar.melhorias.model.enums.Departamento;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,4 +24,8 @@ public class UsuarioCreateDTO {
     @NotBlank(message = "A senha não pode ser vazia.")
     @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres.")
     private String senha;
+
+    // --- CAMPO ADICIONADO ---
+    @NotNull(message = "O departamento é obrigatório.")
+    private Departamento departamento;
 }

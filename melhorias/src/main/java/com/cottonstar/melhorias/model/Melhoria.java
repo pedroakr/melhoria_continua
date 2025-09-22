@@ -32,13 +32,8 @@ public class Melhoria {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsavel_fk", nullable = false)
+    @JoinColumn(name = "responsavel_fk")
     private Usuario responsavel;
-
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gestor_fk")
-    private Usuario gestor;
 
     @ToString.Exclude
     @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -67,23 +62,23 @@ public class Melhoria {
 
     // --- ENUMS E DADOS ---
     @Enumerated(EnumType.STRING)
-    @Column(name = "tamanho", length = 20, nullable = false)
+    @Column(name = "tamanho", length = 20)
     private TamanhoMelhoria tamanhoMelhoria;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "retorno", length = 20, nullable = false)
+    @Column(name = "retorno", length = 20)
     private TipoRetorno tipoRetorno;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "departamento", length = 20, nullable = false)
+    @Column(name = "departamento", length = 20)
     private Departamento departamentoMelhoria;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20, nullable = false)
+    @Column(name = "status", length = 20)
     private StatusEtapa status;
 
     // --- AUDITORIA ---
-    @Column(name = "data_criacao", nullable = false, updatable = false)
+    @Column(name = "data_criacao", updatable = false)
     private LocalDate dataCriacao;
 
     @PrePersist

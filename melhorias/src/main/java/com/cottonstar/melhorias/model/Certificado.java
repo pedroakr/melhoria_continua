@@ -18,7 +18,7 @@ public class Certificado {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "melhoria_fk", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "melhoria_fk", referencedColumnName = "id")
     @JsonIgnore
     private Melhoria melhoria;
 
@@ -32,7 +32,7 @@ public class Certificado {
     private Set<Usuario> usuarios = new HashSet<>();
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DE REGRAS)
-    @Column(name = "data_geracao", nullable = false, updatable = false)
+    @Column(name = "data_geracao", updatable = false)
     private LocalDate dataCertificado;
 
     @PrePersist
