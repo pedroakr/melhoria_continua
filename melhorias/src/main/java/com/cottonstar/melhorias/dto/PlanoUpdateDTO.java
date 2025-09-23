@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.dto;
 
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +14,6 @@ public class PlanoUpdateDTO {
     private String estrategia;
     private String objetivos;
     private BigDecimal expectativaFinanceira;
-    private BigDecimal expectativaTempo;
+    private int expectativaTempo;
     private StatusEtapa statusPlano;
 }

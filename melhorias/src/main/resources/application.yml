@@ -14,5 +14,5 @@ spring:
     defer-datasource-initialization: true
     show-sql: true
 app:
-  jwtSecret: N2RjZDU4NjctZWVmOS00Zjk3LWEzMTItYzA4YjI5ZWEzMGIyLTY1NDU4YjJiLWVmY2YtNGU4Mi1iYmMxLTQwMjg3NjBlYjczMg==
+  jwtSecret: oC?xVe22@+M6^)@++i-6!Y#wCPdZuq0uUuq~,yYkE=N]zvN+8*cp*y#Mi>C7%LgD+t_)B}>u+oLt@n=+:VWy
   jwtExpirationInMs: 86400000

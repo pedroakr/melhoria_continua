@@ -31,12 +31,12 @@ public class DataLoader {
 
             // --- BLOCO DE SUPERVISÃO CORRIGIDO ---
             if (supervisaoRepository.count() == 0) {
-                // Instancia para o Financeiro
-                Supervisao financeiro = new Supervisao();
-                financeiro.setNomeSupervisor("Carlos Chagas");
-                financeiro.setEmailSupervisor("supervisor.financeiro@empresa.com");
-                financeiro.setDepartamento(Departamento.FINANCEIRO);
-                supervisaoRepository.save(financeiro);
+                // Instancia para o Auditoria
+                Supervisao auditoria = new Supervisao();
+                auditoria.setNomeSupervisor("Carlos Chagas");
+                auditoria.setEmailSupervisor("supervisor.auditoria@empresa.com");
+                auditoria.setDepartamento(Departamento.AUDITORIA);
+                supervisaoRepository.save(auditoria);
 
                 // Instancia para a TI
                 Supervisao ti = new Supervisao();

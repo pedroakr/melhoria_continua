@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,20 +33,17 @@ public class Plano {
     private String objetivos;                           // RESULTADO ESPERADO
 
     @Column(name = "valor_expectativa", precision = 15, scale = 2)
-    private BigDecimal expectativaFinanceira = BigDecimal.ZERO;                     // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
+    private BigDecimal expectativaFinanceira /*= BigDecimal.ZERO*/;                     // RETORNO FINANCEIRO ESPERADO R$   { IF TipoRetorno == "FINANCEIRO" }
 
-    @Column(name = "tempo_expectativa", precision = 4, scale = 2)                   // RETORNO ESPERADO DE PRODUTIVIDADE
-    private BigDecimal expectativaTempo;
-
-    @OneToMany(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParticipacaoPlano> participantesPlano = new ArrayList<>();          // USUARIOS QUE PARTICIPARÃO
+    @Column(name = "tempo_expectativa", precision = 5)                   // RETORNO ESPERADO DE PRODUTIVIDADE
+    private int expectativaTempo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20)
     private StatusEtapa statusPlano;                    // STATUS ATUAL { AO CRIAR MELHORIA (AÇÃO) STARTAR COMO "INICIADO", APÓS O USUARIO PODE ALTERAR PARA FINALIZADO QUANDO ACHAR NECESSARIO
 
     @OneToOne(mappedBy = "plano", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @JsonBackReference
     private Melhoria melhoria;
 
     // DATAS --(VERIFICAR NO DESENVOLVIMENTO DAS REGRAS)

@@ -1,6 +1,7 @@
 package com.cottonstar.melhorias.model;
 
 import com.cottonstar.melhorias.model.enums.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -43,6 +44,7 @@ public class Melhoria {
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "plano_fk", referencedColumnName = "id")
+    @JsonManagedReference
     private Plano plano;
 
     @ToString.Exclude

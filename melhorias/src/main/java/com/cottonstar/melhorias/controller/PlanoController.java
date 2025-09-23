@@ -21,10 +21,7 @@ public class PlanoController {
             @PathVariable Long melhoriaId,
             @Valid @RequestBody PlanoUpdateDTO planoUpdateDTO) {
 
-        Plano planoAtualizado = planoService.atualizarPlano(melhoriaId, planoUpdateDTO);
-
-        // Converte a entidade atualizada para um DTO de resposta
-        PlanoDTO responseDTO = new PlanoDTO(planoAtualizado);
+        PlanoDTO responseDTO = planoService.atualizarPlano(melhoriaId, planoUpdateDTO);
 
         return ResponseEntity.ok(responseDTO);
     }

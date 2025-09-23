@@ -52,7 +52,7 @@ public class MelhoriaService {
 
         // Lógica de status
         if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.PEQUENA || novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.MEDIA) {
-            plano.setStatusPlano(StatusEtapa.INICIADO);
+            plano.setStatusPlano(StatusEtapa.AGUARDANDO);
             execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
             verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
             aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);

@@ -1,5 +1,6 @@
 package com.cottonstar.melhorias.service;
 
+import com.cottonstar.melhorias.dto.PlanoDTO;
 import com.cottonstar.melhorias.dto.PlanoUpdateDTO;
 import com.cottonstar.melhorias.model.Melhoria;
 import com.cottonstar.melhorias.model.Plano;
@@ -16,7 +17,7 @@ public class PlanoService {
     private final MelhoriaRepository melhoriaRepository;
 
     @Transactional
-    public Plano atualizarPlano(Long melhoriaId, PlanoUpdateDTO planoUpdateDTO) {
+    public PlanoDTO atualizarPlano(Long melhoriaId, PlanoUpdateDTO planoUpdateDTO) {
         // 1. Encontra a Melhoria principal pelo ID
         Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
                 .orElseThrow(() -> new EntityNotFoundException("Melhoria não encontrada com o ID: " + melhoriaId));
@@ -35,10 +36,18 @@ public class PlanoService {
         planoParaAtualizar.setExpectativaTempo(planoUpdateDTO.getExpectativaTempo());
         planoParaAtualizar.setStatusPlano(planoUpdateDTO.getStatusPlano());
 
+        /*
+
+        -- Acrescentar regra --
+        Ao clicar no botão salvar = Status iniciado
+        Ao clicar no botão finalizar = Status finalizado
+
+        */
+
         // 4. Salva a Melhoria. Como o relacionamento tem CascadeType.ALL,
-        // as alterações no Plano serão salvas automaticamente.
         melhoriaRepository.save(melhoria);
 
-        return planoParaAtualizar;
+        // Converte e retorna o DTO AQUI, dentro da transação
+        return new PlanoDTO(planoParaAtualizar);
     }
 }
