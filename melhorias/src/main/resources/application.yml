@@ -13,8 +13,6 @@ spring:
       ddl-auto: create-drop
     defer-datasource-initialization: true
     show-sql: true
-
-# ADICIONADO: Propriedades para JWT
 app:
   jwtSecret: N2RjZDU4NjctZWVmOS00Zjk3LWEzMTItYzA4YjI5ZWEzMGIyLTY1NDU4YjJiLWVmY2YtNGU4Mi1iYmMxLTQwMjg3NjBlYjczMg==
   jwtExpirationInMs: 86400000

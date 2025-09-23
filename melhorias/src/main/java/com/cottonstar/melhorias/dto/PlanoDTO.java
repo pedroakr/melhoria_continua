@@ -21,7 +21,5 @@ public class PlanoDTO {
         this.estrategia = plano.getEstrategia();
         this.objetivos = plano.getObjetivos();
         this.statusPlano = plano.getStatusPlano();
-        // Mapeie outros campos conforme necessário
     }
-
 }

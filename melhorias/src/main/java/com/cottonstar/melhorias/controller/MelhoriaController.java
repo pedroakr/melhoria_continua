@@ -29,26 +29,7 @@ public class MelhoriaController {
         return new ResponseEntity<>(new MelhoriaDTO(novaMelhoria), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<MelhoriaDTO>> listarMelhorias() {
-        List<Melhoria> melhorias = melhoriaService.listarTodas();
-
-        // Converte a lista de entidades para uma lista de DTOs
-        List<MelhoriaDTO> melhoriasDTO = melhorias.stream()
-                .map(MelhoriaDTO::new)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(melhoriasDTO);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MelhoriaDTO> buscarMelhoriaPorId(@PathVariable Long id) {
-        return melhoriaService.buscarPorId(id)
-                .map(melhoria -> ResponseEntity.ok(new MelhoriaDTO(melhoria))) // Converte para DTO
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
+    /*@PutMapping("/{id}")
     public ResponseEntity<MelhoriaDTO> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
         // ATENÇÃO: Receber a entidade completa no PUT também é uma má prática.
         // O ideal seria criar um MelhoriaUpdateDTO.
@@ -61,7 +42,26 @@ public class MelhoriaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping
+    public ResponseEntity<List<MelhoriaDTO>> listarMelhorias() {
+        List<Melhoria> melhorias = melhoriaService.listarTodas();
+
+        // Converte a lista de entidades para uma lista de DTOs
+        List<MelhoriaDTO> melhoriasDTO = melhorias.stream()
+                .map(MelhoriaDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(melhoriasDTO);
+    }
+
+    /*@GetMapping("/{id}")
+    public ResponseEntity<MelhoriaDTO> buscarMelhoriaPorId(@PathVariable Long id) {
+        return melhoriaService.buscarPorId(id)
+                .map(melhoria -> ResponseEntity.ok(new MelhoriaDTO(melhoria))) // Converte para DTO
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /*@DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMelhoria(@PathVariable Long id) {
         if (melhoriaService.buscarPorId(id).isPresent()) {
             melhoriaService.deletarMelhoria(id);
@@ -69,5 +69,5 @@ public class MelhoriaController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 }

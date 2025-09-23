@@ -16,7 +16,5 @@ public class PlanoUpdateDTO {
     private String objetivos;
     private BigDecimal expectativaFinanceira;
     private BigDecimal expectativaTempo;
-
-    @NotNull(message = "O status do plano não pode ser nulo.")
     private StatusEtapa statusPlano;
 }

@@ -61,18 +61,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
-    // --- MÉTODO ADICIONADO PARA CORRIGIR O ERRO 403 ---
-    /**
-     * Define quais requisições NÃO devem passar por este filtro.
-     * Ignoramos os endpoints públicos de login, criação de usuário e acesso ao console H2.
-     */
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String path = request.getRequestURI();
-        String[] pathsToSkip = {"/auth/login", "/usuarios", "/h2-console"};
-
-        // Retorna 'true' (não filtrar) se o caminho da requisição começar com um dos prefixos definidos.
-        return Arrays.stream(pathsToSkip).anyMatch(path::startsWith);
-    }
 }

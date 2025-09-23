@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login", "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "/usuario/cadastro").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         // --- AJUSTE AQUI ---
                         // Exige que o usuário esteja autenticado para acessar qualquer endpoint de /melhorias

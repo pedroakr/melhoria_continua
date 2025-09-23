@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @PostMapping
+    @PostMapping("/cadastro")
     public ResponseEntity<UsuarioDTO> criarUsuario(@Valid @RequestBody UsuarioCreateDTO usuarioCreateDTO) {
         UsuarioDTO novoUsuario = usuarioService.criar(usuarioCreateDTO);
         return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
     }
 
     // --- CORREÇÃO APLICADA AQUI ---
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
         List<Usuario> usuarios = usuarioService.listarTodos();
 
@@ -37,12 +37,12 @@ public class UsuarioController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(usuariosDTO);
-    }
+    }*/
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id)
                 .map(usuario -> ResponseEntity.ok(new UsuarioDTO(usuario))) // Converte a Entidade para DTO
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    }
+    }*/
 }
