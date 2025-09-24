@@ -1,5 +1,6 @@
 package com.cottonstar.melhorias.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,11 +15,12 @@ public class ParticipacaoExecucao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_fk")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "execucao_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "execucao_fk")
+    @JsonBackReference
     private Execucao execucao;
 }

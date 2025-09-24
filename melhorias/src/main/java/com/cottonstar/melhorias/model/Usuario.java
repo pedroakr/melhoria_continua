@@ -48,9 +48,6 @@ public class Usuario {
     private List<Melhoria> melhoriasResponsavel;                // MELHORIAS QUE O USUARIO TEM CADASTRADO
 
     @OneToMany(mappedBy = "usuario")
-    private List<ParticipacaoPlano> participacoesPlano;         // PARTICIPAÇÕES DO USUÁRIO NOS PLANOS DE AÇÃO
-
-    @OneToMany(mappedBy = "usuario")
     private List<ParticipacaoExecucao> participacoesExecucao;   // PARTICIPAÇÕES DO USUÁRIO NAS EXECUÇÕES
 
 }

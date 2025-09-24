@@ -20,25 +20,33 @@ public class Melhoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responsavel_fk")
+    private Usuario responsavel;
+
     @Column(columnDefinition = "TEXT")
     private String titulo;
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    // --- RELACIONAMENTOS ---
-    //@ToString.Exclude
-    //@OneToMany(mappedBy = "melhoria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    //private List<Comentario> comentariosMelhoria;
+    // --- ENUMS E DADOS ---
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tamanho")
+    private TamanhoMelhoria tamanhoMelhoria;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responsavel_fk")
-    private Usuario responsavel;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "retorno")
+    private TipoRetorno tipoRetorno;
 
-    @ToString.Exclude
-    @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Certificado certificado;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "departamento")
+    private Departamento departamentoMelhoria;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusEtapa status;
 
     // PDCL
     @ToString.Exclude
@@ -62,22 +70,10 @@ public class Melhoria {
     @JoinColumn(name = "aprendizado_fk", referencedColumnName = "id")
     private Aprendizado aprendizado;
 
-    // --- ENUMS E DADOS ---
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tamanho", length = 20)
-    private TamanhoMelhoria tamanhoMelhoria;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "retorno", length = 20)
-    private TipoRetorno tipoRetorno;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "departamento", length = 20)
-    private Departamento departamentoMelhoria;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20)
-    private StatusEtapa status;
+    // CERTIFICADO
+    @ToString.Exclude
+    @OneToOne(mappedBy = "melhoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Certificado certificado;
 
     // --- AUDITORIA ---
     @Column(name = "data_criacao", updatable = false)

@@ -14,7 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PlanoDTO {
     private Long id;
-    private String responsavelNome;
+    private  Long melhoriaId;
+    //private String responsavelNome;
     private String analiseProblema;
     private String estrategia;
     private String objetivos;
@@ -31,9 +32,14 @@ public class PlanoDTO {
         this.expectativaTempo = plano.getExpectativaTempo();
         this.statusPlano = plano.getStatusPlano();
 
-        // Lógica segura para acessar dados de relacionamentos
+        /* Lógica segura para acessar dados de relacionamentos
         if (plano.getMelhoria() != null && plano.getMelhoria().getResponsavel() != null) {
             this.responsavelNome = plano.getMelhoria().getResponsavel().getNome();
+        }*/
+
+        // Lógica segura para acessar dados de relacionamentos
+        if (plano.getMelhoria() != null && plano.getMelhoria().getId() != null) {
+            this.melhoriaId = plano.getMelhoria().getId();
         }
     }
 }

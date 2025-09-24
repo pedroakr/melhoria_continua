@@ -17,4 +17,5 @@ public class VerificacaoUpdateDTO {
     //private String participantesVerificacao; /* VERIFICAR UMA FORMA DE ARMAZENAR NA TABELA DE PARTICIPANTES ANEXANDO ID DA VERIFICAÇÃO */
     // -------------------------------------------------------------------------------
     private StatusEtapa statusVerificacao;
+
 }

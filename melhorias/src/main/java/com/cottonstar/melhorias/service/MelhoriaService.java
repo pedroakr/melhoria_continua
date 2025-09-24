@@ -36,7 +36,7 @@ public class MelhoriaService {
 
         // 3. Mapear os dados do DTO
         novaMelhoria.setTitulo(criarMelhoriaDTO.getTitulo());
-        novaMelhoria.setTamanhoMelhoria(criarMelhoriaDTO.getTipo());
+        novaMelhoria.setTamanhoMelhoria(criarMelhoriaDTO.getTamanhoMelhoria());
         novaMelhoria.setDepartamentoMelhoria(criarMelhoriaDTO.getDepartamentoMelhoria());
         novaMelhoria.setTipoRetorno(criarMelhoriaDTO.getTipoRetorno());
         novaMelhoria.setDescricao(criarMelhoriaDTO.getDescricao());

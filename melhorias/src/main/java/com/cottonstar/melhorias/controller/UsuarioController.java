@@ -26,23 +26,13 @@ public class UsuarioController {
         return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
     }
 
-    // --- CORREÇÃO APLICADA AQUI ---
-    /*@GetMapping
+    // --- ENDPOINT PARA LISTAR USUÁRIOS ---
+    @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
         List<Usuario> usuarios = usuarioService.listarTodos();
-
-        // Converte a lista de Entidades para uma lista de DTOs
         List<UsuarioDTO> usuariosDTO = usuarios.stream()
-                .map(UsuarioDTO::new) // Utiliza o construtor do DTO
+                .map(UsuarioDTO::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(usuariosDTO);
-    }*/
-
-    /*@GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id) {
-        return usuarioService.buscarPorId(id)
-                .map(usuario -> ResponseEntity.ok(new UsuarioDTO(usuario))) // Converte a Entidade para DTO
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }*/
+    }
 }

@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class VerificacaoDTO {
     private Long id;
-    private Long melhoriaId;
+    private  Long melhoriaId;
     private String indicadoresAnalisados;
     private String resultadosObtidos;
     private BigDecimal valorRetornado;
@@ -28,10 +28,12 @@ public class VerificacaoDTO {
     private StatusEtapa statusVerificacao;
 
     public VerificacaoDTO(Verificacao verificacao){
+        this.id = verificacao.getId();
         this.indicadoresAnalisados = verificacao.getIndicadoresAnalisados();
         this.resultadosObtidos = verificacao.getResultadosObtidos();
         this.valorRetornado = verificacao.getValorRetornado();
         this.tempoRetornado = verificacao.getTempoRetornado();
+        this.statusVerificacao = verificacao.getStatusVerificacao();
 
         // Lógica segura para acessar dados de relacionamentos
         if (verificacao.getMelhoria() != null && verificacao.getMelhoria().getId() != null) {

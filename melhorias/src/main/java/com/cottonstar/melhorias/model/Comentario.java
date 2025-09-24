@@ -2,6 +2,7 @@ package com.cottonstar.melhorias.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,13 +20,9 @@ public class Comentario {
     @Column(name = "menssagem", columnDefinition = "TEXT")
     private String mensagem;
 
-    // Relacionamentos
-    @ManyToOne
-    @JoinColumn(name = "melhoria_fk")
-    private Melhoria melhoria;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "execucao_fk")
+    @JsonBackReference // Evita loops infinitos ao retornar JSON
     private Execucao execucao;
 
     // DATA (REVISAR NO DESENVOLVIMENTO DE REGRAS)
@@ -34,6 +31,6 @@ public class Comentario {
 
     @PrePersist
     protected void onCreate() {
-        this.dataComentario = LocalDateTime.now();     // GERADO DE FORMA AUTOMATICA
+        this.dataComentario = LocalDateTime.now();
     }
 }
