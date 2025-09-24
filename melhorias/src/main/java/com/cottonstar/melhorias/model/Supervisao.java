@@ -32,6 +32,7 @@ public class Supervisao {
     @Column(name = "departamento", nullable = false, unique = true)
     private Departamento departamento;
 
+    // RELAÇÃO
     @OneToMany(mappedBy = "supervisor")
     @JsonIgnore
     private List<Usuario> usuariosSupervisionados;

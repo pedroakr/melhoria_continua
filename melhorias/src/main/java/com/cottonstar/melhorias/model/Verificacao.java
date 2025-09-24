@@ -31,7 +31,7 @@ public class Verificacao {
     private BigDecimal valorRetornado = BigDecimal.ZERO;
 
     @Column(name = "tempo_retornado", precision = 4, scale = 2)                   // RETORNO ESPERADO DE PRODUTIVIDADE
-    private BigDecimal tempoRetornado;
+    private int tempoRetornado;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20)
@@ -41,10 +41,11 @@ public class Verificacao {
     @JsonIgnore
     private Melhoria melhoria;
 
+    // ---------------------------------- VERIFICAR ----------------------------------
     @OneToMany(mappedBy = "verificacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Arquivo> anexosVerificacao = new ArrayList<>();
+    // -------------------------------------------------------------------------------
 
-    // DATAS --(VERIFICAR NO DESENVOLVIMENTO DE REGRAS)
     @Column(name = "data_inicio", updatable = false)
     private LocalDate inicioVerificacao;
 

@@ -1,7 +1,6 @@
 package com.cottonstar.melhorias.dto;
 
 import com.cottonstar.melhorias.model.Usuario;
-import com.cottonstar.melhorias.model.enums.Departamento;
 import com.cottonstar.melhorias.model.enums.PerfilAcesso;
 import lombok.Getter;
 import lombok.Setter;
