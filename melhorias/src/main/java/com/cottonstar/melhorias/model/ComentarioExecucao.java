@@ -7,30 +7,43 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_comentarios")
+@Table(name = "tb_comentarios_execucao")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comentario {
+public class ComentarioExecucao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "menssagem", columnDefinition = "TEXT")
+    @Column(name = "mensagem", columnDefinition = "TEXT")
     private String mensagem;
 
+    // --- RELACIONAMENTOS ---
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "execucao_fk")
-    @JsonBackReference // Evita loops infinitos ao retornar JSON
+    @JsonBackReference                                                      // Evita loops infinitos ao retornar JSON
     private Execucao execucao;
 
-    // DATA (REVISAR NO DESENVOLVIMENTO DE REGRAS)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_fk")
+    private Usuario autor;
+
+    // --- DATA ---
     @Column(name = "data_comentario", updatable = false)
     private LocalDateTime dataComentario;
+
+    @Column(name = "data_edicao")
+    private LocalDateTime dataEdicao;
 
     @PrePersist
     protected void onCreate() {
         this.dataComentario = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dataEdicao = LocalDateTime.now();
     }
 }

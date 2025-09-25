@@ -61,6 +61,7 @@ public class Verificacao {
     protected void onUpdate() {
         if (this.statusVerificacao == StatusEtapa.FINALIZADO && this.fimVerificacao == null) {
             this.fimVerificacao = LocalDate.now();
+            //this.statusAprendizado = StatusEtapa.INICIADO;
         }
     }
 }

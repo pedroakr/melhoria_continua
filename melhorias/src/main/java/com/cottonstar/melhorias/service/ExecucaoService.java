@@ -1,13 +1,8 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.dto.AdicionarParticipantesDTO;
-import com.cottonstar.melhorias.dto.ExecucaoDTO;
-import com.cottonstar.melhorias.dto.ExecucaoUpdateDTO;
-import com.cottonstar.melhorias.dto.ParticipacaoExecucaoDTO;
-import com.cottonstar.melhorias.model.Execucao;
-import com.cottonstar.melhorias.model.Melhoria;
-import com.cottonstar.melhorias.model.ParticipacaoExecucao;
-import com.cottonstar.melhorias.model.Usuario;
+import com.cottonstar.melhorias.dto.*;
+import com.cottonstar.melhorias.model.*;
+import com.cottonstar.melhorias.repository.ComentarioExecucaoRepository;
 import com.cottonstar.melhorias.repository.MelhoriaRepository;
 import com.cottonstar.melhorias.repository.ParticipacaoExecucaoRepository;
 import com.cottonstar.melhorias.repository.UsuarioRepository;
@@ -16,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +23,7 @@ public class ExecucaoService {
     private final MelhoriaRepository melhoriaRepository;
     private final UsuarioRepository usuarioRepository;
     private final ParticipacaoExecucaoRepository participacaoExecucaoRepository;
+    private final ComentarioExecucaoRepository comentarioRepository; // Adicione
 
     @Transactional
     public ExecucaoDTO atualizarExecucao(Long melhoriaId, ExecucaoUpdateDTO execucaoUpdateDTO) {
@@ -50,7 +47,7 @@ public class ExecucaoService {
         return new ExecucaoDTO(execucaoParaAtualizar);
     }
 
-    // --- MÉTODO PARA ADICIONAR PARTICIPANTE ---
+    // --- METODO PARA ADICIONAR PARTICIPANTE ---
     @Transactional
     public List<ParticipacaoExecucaoDTO> adicionarParticipantes(Long melhoriaId, AdicionarParticipantesDTO dto) {
         Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
@@ -91,5 +88,42 @@ public class ExecucaoService {
         return participacoesSalvas.stream()
                 .map(ParticipacaoExecucaoDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    // --- NOVO MÉTODO PARA ADICIONAR COMENTÁRIO ---
+    @Transactional
+    public ComentarioDTO adicionarComentario(Long melhoriaId, ComentarioCreateDTO dto, String emailUsuarioLogado) {
+        Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
+                .orElseThrow(() -> new EntityNotFoundException("Melhoria não encontrada com o ID: " + melhoriaId));
+        Execucao execucao = melhoria.getExecucao();
+        Usuario autor = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário autor não encontrado."));
+
+        ComentarioExecucao novoComentario = new ComentarioExecucao();
+        novoComentario.setMensagem(dto.getMensagem());
+        novoComentario.setExecucao(execucao);
+        novoComentario.setAutor(autor);
+
+        ComentarioExecucao comentarioSalvo = comentarioRepository.save(novoComentario);
+        return new ComentarioDTO(comentarioSalvo);
+    }
+
+    // --- NOVO MÉTODO PARA ATUALIZAR COMENTÁRIO ---
+    @Transactional
+    public ComentarioDTO atualizarComentario(Long comentarioId, ComentarioUpdateDTO dto, String emailUsuarioLogado) throws AccessDeniedException {
+        ComentarioExecucao comentario = comentarioRepository.findById(comentarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Comentário não encontrado com o ID: " + comentarioId));
+
+        Usuario usuarioLogado = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
+
+        // VERIFICAÇÃO DE SEGURANÇA: Só o autor original pode editar.
+        if (!comentario.getAutor().getId().equals(usuarioLogado.getId())) {
+            throw new AccessDeniedException("Você não tem permissão para editar este comentário.");
+        }
+
+        comentario.setMensagem(dto.getMensagem());
+        ComentarioExecucao comentarioSalvo = comentarioRepository.save(comentario);
+        return new ComentarioDTO(comentarioSalvo);
     }
 }

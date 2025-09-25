@@ -28,7 +28,7 @@ public class Execucao {
 
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Comentario> comentariosExecucao;
+    private List<ComentarioExecucao> comentariosExecucao;
 
     @OneToMany(mappedBy = "execucao", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

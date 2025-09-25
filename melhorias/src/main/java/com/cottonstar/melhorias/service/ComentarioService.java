@@ -1,7 +1,7 @@
 package com.cottonstar.melhorias.service;
 
-import com.cottonstar.melhorias.model.Comentario;
-import com.cottonstar.melhorias.repository.ComentarioRepository;
+import com.cottonstar.melhorias.model.ComentarioExecucao;
+import com.cottonstar.melhorias.repository.ComentarioExecucaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +12,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ComentarioService {
 
-    private final ComentarioRepository comentarioRepository;
+    private final ComentarioExecucaoRepository comentarioExecucaoRepository;
 
-    public Comentario criarComentario(Comentario comentario) {
-        return comentarioRepository.save(comentario);
+    public ComentarioExecucao criarComentario(ComentarioExecucao comentario) {
+        return comentarioExecucaoRepository.save(comentario);
     }
 
-    public Optional<Comentario> buscarPorId(Long id) {
-        return comentarioRepository.findById(id);
+    public Optional<ComentarioExecucao> buscarPorId(Long id) {
+        return comentarioExecucaoRepository.findById(id);
     }
 
-    public List<Comentario> listarTodos() {
-        return comentarioRepository.findAll();
+    public List<ComentarioExecucao> listarTodos() {
+        return comentarioExecucaoRepository.findAll();
     }
 
     public void deletarComentario(Long id) {
-        comentarioRepository.deleteById(id);
+        comentarioExecucaoRepository.deleteById(id);
     }
 }

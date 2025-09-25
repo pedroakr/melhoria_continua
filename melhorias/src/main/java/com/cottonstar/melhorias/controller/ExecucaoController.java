@@ -1,16 +1,15 @@
 package com.cottonstar.melhorias.controller;
 
-import com.cottonstar.melhorias.dto.AdicionarParticipantesDTO;
-import com.cottonstar.melhorias.dto.ExecucaoDTO;
-import com.cottonstar.melhorias.dto.ExecucaoUpdateDTO;
-import com.cottonstar.melhorias.dto.ParticipacaoExecucaoDTO;
+import com.cottonstar.melhorias.dto.*;
 import com.cottonstar.melhorias.service.ExecucaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -38,5 +37,29 @@ public class ExecucaoController {
 
         List<ParticipacaoExecucaoDTO> novasParticipacoes = execucaoService.adicionarParticipantes(melhoriaId, dto);
         return new ResponseEntity<>(novasParticipacoes, HttpStatus.CREATED);
+    }
+
+    // --- ENDPOINT PARA CRIAR UM NOVO COMENTÁRIO ---
+    @PostMapping("/comentarios")
+    public ResponseEntity<ComentarioDTO> adicionarComentario(
+            @PathVariable Long melhoriaId,
+            @Valid @RequestBody ComentarioCreateDTO comentarioDTO,
+            Authentication authentication) {
+        String emailUsuarioLogado = authentication.getName();
+        ComentarioDTO novoComentario = execucaoService.adicionarComentario(melhoriaId, comentarioDTO, emailUsuarioLogado);
+        return new ResponseEntity<>(novoComentario, HttpStatus.CREATED);
+    }
+
+    // --- ENDPOINT PARA ATUALIZAR UM COMENTÁRIO EXISTENTE ---
+    // Note que {comentarioId} não depende de {melhoriaId}, mas manter a rota aninhada é bom para consistência.
+    @PutMapping("/comentarios/{comentarioId}")
+    public ResponseEntity<ComentarioDTO> atualizarComentario(
+            @PathVariable Long melhoriaId, // pode ser usado para validação extra se necessário
+            @PathVariable Long comentarioId,
+            @Valid @RequestBody ComentarioUpdateDTO comentarioDTO,
+            Authentication authentication) throws AccessDeniedException {
+        String emailUsuarioLogado = authentication.getName();
+        ComentarioDTO comentarioAtualizado = execucaoService.atualizarComentario(comentarioId, comentarioDTO, emailUsuarioLogado);
+        return ResponseEntity.ok(comentarioAtualizado);
     }
 }
