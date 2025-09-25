@@ -2,14 +2,15 @@ package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.dto.*;
 import com.cottonstar.melhorias.model.*;
-import com.cottonstar.melhorias.repository.ComentarioExecucaoRepository;
-import com.cottonstar.melhorias.repository.MelhoriaRepository;
-import com.cottonstar.melhorias.repository.ParticipacaoExecucaoRepository;
-import com.cottonstar.melhorias.repository.UsuarioRepository;
+import com.cottonstar.melhorias.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import com.cottonstar.melhorias.dto.ArquivoDTO;
+import com.cottonstar.melhorias.repository.ArquivoRepository;
 
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class ExecucaoService {
     private final UsuarioRepository usuarioRepository;
     private final ParticipacaoExecucaoRepository participacaoExecucaoRepository;
     private final ComentarioExecucaoRepository comentarioRepository; // Adicione
+    private final ArquivoRepository arquivoRepository;
+    private final FileStorageService fileStorageService;
 
     @Transactional
     public ExecucaoDTO atualizarExecucao(Long melhoriaId, ExecucaoUpdateDTO execucaoUpdateDTO) {
@@ -90,7 +93,7 @@ public class ExecucaoService {
                 .collect(Collectors.toList());
     }
 
-    // --- NOVO MÉTODO PARA ADICIONAR COMENTÁRIO ---
+    // --- METODO PARA ADICIONAR COMENTÁRIO ---
     @Transactional
     public ComentarioDTO adicionarComentario(Long melhoriaId, ComentarioCreateDTO dto, String emailUsuarioLogado) {
         Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
@@ -125,5 +128,35 @@ public class ExecucaoService {
         comentario.setMensagem(dto.getMensagem());
         ComentarioExecucao comentarioSalvo = comentarioRepository.save(comentario);
         return new ComentarioDTO(comentarioSalvo);
+    }
+
+    // --- NOVO MÉTODO PARA UPLOAD ---
+    @Transactional
+    public ArquivoDTO anexarArquivo(Long melhoriaId, MultipartFile file) {
+        Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
+                .orElseThrow(() -> new EntityNotFoundException("Melhoria não encontrada."));
+        Execucao execucao = melhoria.getExecucao();
+
+        String nomeArmazenado = fileStorageService.storeFile(file);
+
+        Arquivo novoArquivo = new Arquivo();
+        novoArquivo.setNomeOriginal(StringUtils.cleanPath(file.getOriginalFilename()));
+        novoArquivo.setNomeArmazenado(nomeArmazenado);
+        novoArquivo.setContentType(file.getContentType());
+        novoArquivo.setTamanho(file.getSize());
+        novoArquivo.setExecucao(execucao);
+
+        Arquivo arquivoSalvo = arquivoRepository.save(novoArquivo);
+        return new ArquivoDTO(arquivoSalvo);
+    }
+
+    // --- NOVO MÉTODO PARA DELEÇÃO ---
+    @Transactional
+    public void deletarAnexo(Long arquivoId) {
+        Arquivo arquivo = arquivoRepository.findById(arquivoId)
+                .orElseThrow(() -> new EntityNotFoundException("Arquivo não encontrado."));
+
+        fileStorageService.deleteFile(arquivo.getNomeArmazenado());
+        arquivoRepository.delete(arquivo);
     }
 }

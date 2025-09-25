@@ -16,3 +16,5 @@ spring:
 app:
   jwtSecret: oC?xVe22@+M6^)@++i-6!Y#wCPdZuq0uUuq~,yYkE=N]zvN+8*cp*y#Mi>C7%LgD+t_)B}>u+oLt@n=+:VWy
   jwtExpirationInMs: 86400000
+file:
+  upload-dir: ./uploads
