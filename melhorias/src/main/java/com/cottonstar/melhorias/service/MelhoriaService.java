@@ -1,6 +1,7 @@
 package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.dto.CriarMelhoriaDTO;
+import com.cottonstar.melhorias.dto.MelhoriaDTO;
 import com.cottonstar.melhorias.model.*;
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,8 +62,8 @@ public class MelhoriaService {
 
             // --- CORREÇÃO CRÍTICA AQUI ---
             // Atribui valores padrão aos campos não nulos de Verificacao
-            verificacao.setIndicadoresAnalisados("Ainda não aplicável.");
-            verificacao.setResultadosObtidos("Ainda não aplicável.");
+            verificacao.setIndicadoresAnalisados("NA");
+            verificacao.setResultadosObtidos("NA");
 
         } else if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.GRANDE) {
             novaMelhoria.setStatus(StatusEtapa.AGUARDANDO);
@@ -71,6 +73,18 @@ public class MelhoriaService {
         return melhoriaRepository.save(novaMelhoria);
     }
 
+    // --- NOVO METODO PARA LISTAR MELHORIAS DO USUÁRIO LOGADO ---
+    public List<MelhoriaDTO> listarMelhoriasPorUsuario(String emailUsuarioLogado) {
+        // 1. Usa o novo método do repositório para buscar as entidades
+        List<Melhoria> melhorias = melhoriaRepository.findByResponsavelEmail(emailUsuarioLogado);
+
+        // 2. Converte a lista de entidades para uma lista de DTOs
+        return melhorias.stream()
+                .map(MelhoriaDTO::new) // Usa o construtor do MelhoriaDTO
+                .collect(Collectors.toList());
+    }
+
+    // --- MÉTODOS DE APOIO EXISTENTES ---
     public Optional<Melhoria> buscarPorId(Long id) {
         return melhoriaRepository.findById(id);
     }

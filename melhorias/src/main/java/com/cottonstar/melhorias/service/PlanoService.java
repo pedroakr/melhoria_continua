@@ -38,9 +38,20 @@ public class PlanoService {
 
         /*
 
-        -- Acrescentar regra --
-        Ao clicar no botão salvar = Status iniciado
+        -- Acrescentar regra -> PARA PLANO --
+        Ao clicar no botão salvar:
+            plano.setStatusPlano(StatusEtapa.INICIADO);
+            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
+            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
+            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
+            novaMelhoria.setStatus(StatusEtapa.INICIADO);
+
         Ao clicar no botão finalizar = Status finalizado
+            plano.setStatusPlano(StatusEtapa.FINALIZADO);
+            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
+            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
+            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
+            novaMelhoria.setStatus(StatusEtapa.INICIADO);
 
         */
 

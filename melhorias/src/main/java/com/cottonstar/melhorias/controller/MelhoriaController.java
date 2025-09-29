@@ -20,6 +20,19 @@ public class MelhoriaController {
 
     private final MelhoriaService melhoriaService;
 
+    // --- NOVO ENDPOINT PARA A PÁGINA INICIAL ---
+    @GetMapping("/minhas-melhorias")
+    public ResponseEntity<List<MelhoriaDTO>> listarMinhasMelhorias(Authentication authentication) {
+        // 1. Pega o e-mail do usuário a partir do token de autenticação
+        String emailUsuarioLogado = authentication.getName();
+
+        // 2. Chama o serviço para buscar e converter os dados
+        List<MelhoriaDTO> minhasMelhorias = melhoriaService.listarMelhoriasPorUsuario(emailUsuarioLogado);
+
+        // 3. Retorna a lista de DTOs com status 200 OK
+        return ResponseEntity.ok(minhasMelhorias);
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<MelhoriaDTO> criarMelhoria(@RequestBody CriarMelhoriaDTO criarMelhoriaDTO, Authentication authentication) {
         String emailUsuarioLogado = authentication.getName();
@@ -29,45 +42,4 @@ public class MelhoriaController {
         return new ResponseEntity<>(new MelhoriaDTO(novaMelhoria), HttpStatus.CREATED);
     }
 
-    /*@PutMapping("/{id}")
-    public ResponseEntity<MelhoriaDTO> atualizarMelhoria(@PathVariable Long id, @RequestBody Melhoria melhoriaAtualizada) {
-        // ATENÇÃO: Receber a entidade completa no PUT também é uma má prática.
-        // O ideal seria criar um MelhoriaUpdateDTO.
-        return melhoriaService.buscarPorId(id)
-                .map(melhoriaExistente -> {
-                    melhoriaAtualizada.setId(id);
-                    Melhoria melhoriaSalva = melhoriaService.atualizarMelhoria(melhoriaAtualizada);
-                    return ResponseEntity.ok(new MelhoriaDTO(melhoriaSalva)); // Converte para DTO
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<List<MelhoriaDTO>> listarMelhorias() {
-        List<Melhoria> melhorias = melhoriaService.listarTodas();
-
-        // Converte a lista de entidades para uma lista de DTOs
-        List<MelhoriaDTO> melhoriasDTO = melhorias.stream()
-                .map(MelhoriaDTO::new)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(melhoriasDTO);
-    }
-
-    /*@GetMapping("/{id}")
-    public ResponseEntity<MelhoriaDTO> buscarMelhoriaPorId(@PathVariable Long id) {
-        return melhoriaService.buscarPorId(id)
-                .map(melhoria -> ResponseEntity.ok(new MelhoriaDTO(melhoria))) // Converte para DTO
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    /*@DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarMelhoria(@PathVariable Long id) {
-        if (melhoriaService.buscarPorId(id).isPresent()) {
-            melhoriaService.deletarMelhoria(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
 }
