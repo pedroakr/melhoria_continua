@@ -36,6 +36,7 @@ public class PlanoService {
         planoParaAtualizar.setExpectativaTempo(planoUpdateDTO.getExpectativaTempo());
         planoParaAtualizar.setStatusPlano(planoUpdateDTO.getStatusPlano());
 
+
         /*
 
         -- Acrescentar regra -> PARA PLANO --
