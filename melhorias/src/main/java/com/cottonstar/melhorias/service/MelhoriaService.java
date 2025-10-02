@@ -4,6 +4,7 @@ import com.cottonstar.melhorias.dto.CriarMelhoriaDTO;
 import com.cottonstar.melhorias.dto.MelhoriaDTO;
 import com.cottonstar.melhorias.model.*;
 import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import com.cottonstar.melhorias.repository.MelhoriaRepository;
 import com.cottonstar.melhorias.repository.UsuarioRepository;
@@ -54,11 +55,7 @@ public class MelhoriaService {
 
         // Lógica de status
         if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.PEQUENA || novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.MEDIA) {
-            plano.setStatusPlano(StatusEtapa.AGUARDANDO);
-            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
-            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
-            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
-            novaMelhoria.setStatus(StatusEtapa.INICIADO);
+            novaMelhoria.setStatus(StatusMelhoria.APROVADO);
 
             // --- CORREÇÃO CRÍTICA AQUI ---
             // Atribui valores padrão aos campos não nulos de Verificacao
@@ -66,16 +63,22 @@ public class MelhoriaService {
             verificacao.setResultadosObtidos("NA");
 
         } else if (novaMelhoria.getTamanhoMelhoria() == TamanhoMelhoria.GRANDE) {
-            novaMelhoria.setStatus(StatusEtapa.AGUARDANDO);
+            novaMelhoria.setStatus(StatusMelhoria.EM_APROVACAO);
+
             // ... (regras futuras)
         }
+
+        plano.setStatusPlano(StatusEtapa.AGUARDANDO);
+        execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
+        verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
+        aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
 
         return melhoriaRepository.save(novaMelhoria);
     }
 
-    // --- NOVO METODO PARA LISTAR MELHORIAS DO USUÁRIO LOGADO ---
+    // --- OVO METODO PARA LISTAR MELHORIAS DO USUÁRIO LOGADO ---
     public List<MelhoriaDTO> listarMelhoriasPorUsuario(String emailUsuarioLogado) {
-        // 1. Usa o novo método do repositório para buscar as entidades
+        // 1. Usa o novo metodo do repositório para buscar as entidades
         List<Melhoria> melhorias = melhoriaRepository.findByResponsavelEmail(emailUsuarioLogado);
 
         // 2. Converte a lista de entidades para uma lista de DTOs

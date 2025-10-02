@@ -46,7 +46,7 @@ public class Melhoria {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StatusEtapa status;
+    private StatusMelhoria status;
 
     // PDCL
     @ToString.Exclude
@@ -89,7 +89,7 @@ public class Melhoria {
 
     @PreUpdate
     protected void onUpdate() {
-        if (this.status == StatusEtapa.FINALIZADO && this.dataConclusao == null) {
+        if (this.status == StatusMelhoria.CONCLUIDO && this.dataConclusao == null) {
             this.dataConclusao = LocalDate.now();
         }
     }

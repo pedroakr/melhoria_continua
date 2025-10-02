@@ -111,7 +111,7 @@ public class ExecucaoService {
         return new ComentarioDTO(comentarioSalvo);
     }
 
-    // --- NOVO MÉTODO PARA ATUALIZAR COMENTÁRIO ---
+    // --- NOVO METODO PARA ATUALIZAR COMENTÁRIO ---
     @Transactional
     public ComentarioDTO atualizarComentario(Long comentarioId, ComentarioUpdateDTO dto, String emailUsuarioLogado) throws AccessDeniedException {
         ComentarioExecucao comentario = comentarioRepository.findById(comentarioId)
@@ -130,7 +130,7 @@ public class ExecucaoService {
         return new ComentarioDTO(comentarioSalvo);
     }
 
-    // --- NOVO MÉTODO PARA UPLOAD ---
+    // --- NOVO METODO PARA UPLOAD ---
     @Transactional
     public ArquivoDTO anexarArquivo(Long melhoriaId, MultipartFile file) {
         Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
@@ -150,7 +150,7 @@ public class ExecucaoService {
         return new ArquivoDTO(arquivoSalvo);
     }
 
-    // --- NOVO MÉTODO PARA DELEÇÃO ---
+    // --- NOVO METODO PARA DELEÇÃO ---
     @Transactional
     public void deletarAnexo(Long arquivoId) {
         Arquivo arquivo = arquivoRepository.findById(arquivoId)

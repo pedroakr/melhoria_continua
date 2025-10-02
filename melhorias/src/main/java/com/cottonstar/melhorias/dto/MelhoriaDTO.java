@@ -2,7 +2,7 @@ package com.cottonstar.melhorias.dto;
 
 import com.cottonstar.melhorias.model.Melhoria; // Importe a entidade
 import com.cottonstar.melhorias.model.enums.Departamento;
-import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.model.enums.TamanhoMelhoria;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class MelhoriaDTO {
     private String responsavelNome;
     private LocalDate dataCriacao;
     private LocalDate dataConclusao; // Pode ser nulo
-    private StatusEtapa status;
+    private StatusMelhoria status;
 
     // Construtor que converte a Entidade para DTO
     public MelhoriaDTO(Melhoria melhoria) {

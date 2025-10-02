@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum StatusMelhoria {
-    CRIADO("Criado"),
-    EM_ANDAMENTO("Em andamento"),
-    CONCLUIDO("Concluído"),
+    EM_APROVACAO("Em aprovação"),
     APROVADO("Aprovado"),
-    REJEITADO("Rejeitado");
+    REJEITADO("Rejeitado"),
+    EM_ANDAMENTO("Em andamento"),
+    CONCLUIDO("Concluído");
 
     private final String descricao;
 

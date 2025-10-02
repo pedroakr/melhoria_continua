@@ -2,8 +2,9 @@ package com.cottonstar.melhorias.service;
 
 import com.cottonstar.melhorias.dto.PlanoDTO;
 import com.cottonstar.melhorias.dto.PlanoUpdateDTO;
-import com.cottonstar.melhorias.model.Melhoria;
-import com.cottonstar.melhorias.model.Plano;
+import com.cottonstar.melhorias.model.*;
+import com.cottonstar.melhorias.model.enums.StatusEtapa;
+import com.cottonstar.melhorias.model.enums.StatusMelhoria;
 import com.cottonstar.melhorias.repository.MelhoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class PlanoService {
 
     @Transactional
     public PlanoDTO atualizarPlano(Long melhoriaId, PlanoUpdateDTO planoUpdateDTO) {
-        // 1. Encontra a Melhoria principal pelo ID
+        // 1. Encontra a Melhoria principal pelo ‘ID’
         Melhoria melhoria = melhoriaRepository.findById(melhoriaId)
                 .orElseThrow(() -> new EntityNotFoundException("Melhoria não encontrada com o ID: " + melhoriaId));
 
@@ -28,7 +29,12 @@ public class PlanoService {
             throw new IllegalStateException("Esta melhoria não possui um plano associado.");
         }
 
-        // 3. Atualiza os campos do Plano com os dados do DTO
+        // 3. Obter as outras etapas para atualizar seus status
+        Execucao execucao = melhoria.getExecucao();
+        Verificacao verificacao = melhoria.getVerificacao();
+        Aprendizado aprendizado = melhoria.getAprendizado();
+
+        // 4. Atualiza os campos do Plano com os dados do DTO
         planoParaAtualizar.setAnaliseProblema(planoUpdateDTO.getAnaliseProblema());
         planoParaAtualizar.setEstrategia(planoUpdateDTO.getEstrategia());
         planoParaAtualizar.setObjetivos(planoUpdateDTO.getObjetivos());
@@ -36,30 +42,22 @@ public class PlanoService {
         planoParaAtualizar.setExpectativaTempo(planoUpdateDTO.getExpectativaTempo());
         planoParaAtualizar.setStatusPlano(planoUpdateDTO.getStatusPlano());
 
+        // 5. Aplica a regra de negócio baseada no status enviado pelo front-end
+        StatusEtapa novoStatusPlano = planoUpdateDTO.getStatusPlano();
+        planoParaAtualizar.setStatusPlano(novoStatusPlano);
 
-        /*
+        melhoria.setStatus(StatusMelhoria.EM_ANDAMENTO);
 
-        -- Acrescentar regra -> PARA PLANO --
-        Ao clicar no botão salvar:
-            plano.setStatusPlano(StatusEtapa.INICIADO);
-            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
-            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
-            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
-            novaMelhoria.setStatus(StatusEtapa.INICIADO);
+        if (novoStatusPlano == StatusEtapa.FINALIZADO) {
+            // Lógica para "Finalizar"
+            execucao.setStatusExecucao(StatusEtapa.INICIADO);
+        }
 
-        Ao clicar no botão finalizar = Status finalizado
-            plano.setStatusPlano(StatusEtapa.FINALIZADO);
-            execucao.setStatusExecucao(StatusEtapa.AGUARDANDO);
-            verificacao.setStatusVerificacao(StatusEtapa.AGUARDANDO);
-            aprendizado.setStatusAprendizado(StatusEtapa.AGUARDANDO);
-            novaMelhoria.setStatus(StatusEtapa.INICIADO);
-
-        */
-
-        // 4. Salva a Melhoria. Como o relacionamento tem CascadeType.ALL,
+        // 6. Salva a Melhoria. A anotação @Transactional garante que todas as alterações
+        // (no plano, execução, etc.) sejam salvas juntas.
         melhoriaRepository.save(melhoria);
 
-        // Converte e retorna o DTO AQUI, dentro da transação
+        // 7. Converte e retorna o DTO com os dados atualizados
         return new PlanoDTO(planoParaAtualizar);
     }
 }
